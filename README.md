@@ -1,2 +1,2 @@
 # box
-Welcome to my box!
+Welcome to the box!
