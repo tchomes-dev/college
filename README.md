@@ -1,2 +1,2 @@
-# hive
-Welcome to the hive!
+# box
+Welcome to my box!
