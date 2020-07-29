@@ -1,0 +1,2 @@
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\x64\Debug\lighting.exe
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\x64\Debug\lighting.pdb

@@ -1,0 +1,17 @@
+﻿  Mesh.cpp
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\Mesh.cpp(27,26): error C2061: syntax error: identifier 'Shader'
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\Mesh.cpp(34,91): error C2535: 'Mesh::Mesh(std::vector<Vertex,std::allocator<Vertex>>,std::vector<unsigned int,std::allocator<unsigned int>>,std::vector<Texture,std::allocator<Texture>>)': member function already defined or declared
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\Mesh.cpp(26): message : see declaration of 'Mesh::Mesh'
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\Mesh.cpp(42,22): error C2535: 'void Mesh::setupMesh(void)': member function already defined or declared
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\Mesh.cpp(32): message : see declaration of 'Mesh::setupMesh'
+  lighting.cpp
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(193,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(242,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(322,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(323,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(326,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(327,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(329,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(330,10): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(335,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
