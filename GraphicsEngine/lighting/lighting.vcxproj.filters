@@ -38,10 +38,10 @@
     <ClInclude Include="..\..\..\Libs and Includes\Includes\stb\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Model\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Mesh\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -150,13 +150,13 @@
     <ClCompile Include="lighting.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Mesh\Mesh.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Model\Model.h" />
     <ClInclude Include="..\..\..\Libs and Includes\Includes\Camera\Camera.h" />
     <ClInclude Include="..\..\..\Libs and Includes\Includes\glad\glad.h" />
     <ClInclude Include="..\..\..\Libs and Includes\Includes\GLFW\glfw3.h" />
     <ClInclude Include="..\..\..\Libs and Includes\Includes\Shader\Shader.h" />
     <ClInclude Include="..\..\..\Libs and Includes\Includes\stb\stb_image.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="object data\cube\cubeColor.fs" />
