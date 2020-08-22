@@ -73,8 +73,7 @@ int main() {
 
 	//build and compile our shader program
 	//-----------------------------------
-	Shader cubeShader("object data/cube/cubeColor.vs", "object data/cube/cubeColor.fs");
-	Shader lampShader("object data/lamp/lampShader.vs", "object data/lamp/lampShader.fs");
+	Shader shader("object data/cube/cubeColor.vs", "object data/cube/cubeColor.fs");
 
 	//set up vertex data (and buffer(s)) and configure vertex attributes
 	//-----------------------------------
@@ -96,22 +95,18 @@ int main() {
 
 		//define model, camera and projection matrices
 		//-----------------------------------
-		cubeShader.use();
+		shader.use();
 		glm::mat4 view = camera.GetViewMatrix();
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
-		cubeShader.setVec3("viewPos", camera.Position);
-		cubeShader.setMat4("view", view);
-		cubeShader.setMat4("projection", projection);
+		shader.setVec3("viewPos", camera.Position);
+		shader.setMat4("view", view);
+		shader.setMat4("projection", projection);
 
 		//send model matricies to shaders
-		for (int i = 0; i < sizeof(cubePositions)/sizeof(cubePositions[0]); i++) {
-			//container model translation and scaling
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePositions[i]);
-			model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
-			cubeShader.setMat4("model", model);
-			cubeShader.setFloat("time", glfwGetTime());
-		}
+		//container model translation and scaling			
+		glm::mat4 model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
+		shader.setMat4("model", model);
+		shader.setFloat("time", glfwGetTime());
 
 		//check and call events and swap buffers
 		glfwSwapBuffers(window);
