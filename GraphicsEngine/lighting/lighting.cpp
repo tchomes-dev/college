@@ -1,13 +1,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <Shader/Shader.h>
-#include <Camera/Camera.h>
-#include <stb/stb_image.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <Shader/Shader.h>
+#include <Camera/Camera.h>
+#include <Model/Model.h>
 
 #include <iostream>
 
@@ -71,9 +72,15 @@ int main() {
 		return -1;
 	}
 
+	stbi_set_flip_vertically_on_load(true);
+
 	//build and compile our shader program
 	//-----------------------------------
-	Shader shader("object data/cube/cubeColor.vs", "object data/cube/cubeColor.fs");
+	Shader ourShader("object data/backpack/backpack.vs", "object data/backpack/backpack.fs");
+	Shader lampShader("object data/lamp/lampShader.vs", "object data/lamp/lampShader.fs");
+
+	//load model (replace with path to obj file)
+	Model backpack("C:/Users/Tony/Documents/GitHub/box/GraphicsEngine/lighting/object data/backpack/backpack.obj");
 
 	//set up vertex data (and buffer(s)) and configure vertex attributes
 	//-----------------------------------
@@ -93,20 +100,24 @@ int main() {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		//lighting
+		setDirectionalLight(ourShader, glm::vec3(1.0f), glm::vec3(-0.2, -1.0f, -0.3f), glm::vec3(0.5f));
+
 		//define model, camera and projection matrices
 		//-----------------------------------
-		shader.use();
+		ourShader.use();
 		glm::mat4 view = camera.GetViewMatrix();
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
-		shader.setVec3("viewPos", camera.Position);
-		shader.setMat4("view", view);
-		shader.setMat4("projection", projection);
+		ourShader.setMat4("view", view);
+		ourShader.setMat4("projection", projection);
 
 		//send model matricies to shaders
 		//container model translation and scaling			
-		glm::mat4 model = glm::scale(model, glm::vec3(0.75f, 0.75f, 0.75f));
-		shader.setMat4("model", model);
-		shader.setFloat("time", glfwGetTime());
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.1f));
+		ourShader.setMat4("model", model);
+		backpack.Draw(ourShader);
 
 		//check and call events and swap buffers
 		glfwSwapBuffers(window);
