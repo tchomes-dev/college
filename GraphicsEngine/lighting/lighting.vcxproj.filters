@@ -23,39 +23,42 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\Camera\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\glad\glad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\GLFW\glfw3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\Shader\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\stb\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Model\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Mesh\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\assimp\Importer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\assimp\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\assimp\postprocess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Shader\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\GLFW\glfw3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\glad\glad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="object data\lamp\lampShader.fs">
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.fs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="object data\lamp\lampShader.vs">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="object data\cube\cubeColor.fs">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="object data\cube\cubeColor.vs">
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.vs">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

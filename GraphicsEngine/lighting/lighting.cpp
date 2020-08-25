@@ -39,9 +39,9 @@ void processInput(GLFWwindow* window);
 void setDirectionalLight(Shader shader, glm::vec3 color, glm::vec3 direction, glm::vec3 specular);
 void setPointLight(Shader shader, glm::vec3 color, glm::vec3 position, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, int pointLightNumber);
 void setSpotLight(Shader shader, glm::vec3 color, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, float cutOff, float outerCutOff);
-unsigned int loadTexture(const char* filePath);
 
 int main() {
+
 	//glfw: initialize and configure
 	//-----------------------------------
 	glfwInit();
@@ -101,7 +101,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//lighting
-		setDirectionalLight(ourShader, glm::vec3(1.0f), glm::vec3(-0.2, -1.0f, -0.3f), glm::vec3(0.5f));
+		setPointLight(ourShader, glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(-3.0f, 5.0f, -7.0f), glm::vec3(1.0f), 1.0f, 0.09, 0.032, 1);
 
 		//define model, camera and projection matrices
 		//-----------------------------------
@@ -232,45 +232,4 @@ void setSpotLight(Shader shader, glm::vec3 color, glm::vec3 specular, float atte
 	shader.setFloat("flashlight.quadratic", attenuationQuadratic);
 	shader.setFloat("flashlight.cutOff", cutOff);
 	shader.setFloat("flashlight.outerCutOff", outerCutOff);
-}
-
-//takes in file path and utilizes stbi to load a texture with repeat wrapping and linear filtering
-//TODO: change for greater options in the future like choice of wrapping and filtering
-unsigned int loadTexture(const char * filePath) {
-	unsigned int textureID;
-	glGenTextures(1, &textureID);
-
-	//load and generate texture
-	int width, height, nrChannels;
-
-	unsigned char* data = stbi_load(filePath, &width, &height, &nrChannels, 0);
-	if (data) {
-		GLenum format = 0;
-
-		switch (nrChannels) {
-			case 1:
-				format = GL_RED;
-			case 3:
-				format = GL_RGB;
-			case 4:
-				format = GL_RGBA;
-		}
-
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		//set texture wrapping options
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		//set texture filtering options
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	}
-	else {
-		std::cout << "Failed to load diffuseMap" << std::endl;
-	}
-	stbi_image_free(data);
-
-	return textureID;
 }
