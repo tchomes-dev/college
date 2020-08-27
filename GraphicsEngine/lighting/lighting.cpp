@@ -76,17 +76,32 @@ int main() {
 
 	//build and compile our shader program
 	//-----------------------------------
-	Shader ourShader("object data/backpack/backpack.vs", "object data/backpack/backpack.fs");
-	Shader lampShader("object data/lamp/lampShader.vs", "object data/lamp/lampShader.fs");
+	Shader ourShader("C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.vs", "C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.fs");
+	Shader lampShader("C:/Users/Tony/Dropbox/Model_Data/lamp/lampShader.vs", "C:/Users/Tony/Dropbox/Model_Data/lamp/lampShader.fs");
 
 	//load model (replace with path to obj file)
-	Model backpack("C:/Users/Tony/Documents/GitHub/box/GraphicsEngine/lighting/object data/backpack/backpack.obj");
+	Model backpack("C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.obj");
+	Model lamp("C:/Users/Tony/Dropbox/Model_Data/lamp/lamp.obj");
 
 	//set up vertex data (and buffer(s)) and configure vertex attributes
 	//-----------------------------------
 
+	glm::vec3 pointLightColors[] = {
+		glm::vec3(1.0f),
+		glm::vec3(1.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	};
+
 	//render loop
 	while (!glfwWindowShouldClose(window)) {
+		glm::vec3 pointLightPositions[] = {
+		glm::vec3(sin(glfwGetTime()) * 4.0f,  0.0f,  4.0f + -cos(glfwGetTime()) / 4.0f),
+		glm::vec3(2.3f, 3.3f -sin(glfwGetTime()) * 4.0f, -4.0f + cos(glfwGetTime()) * 4.0f),
+		glm::vec3(-4.0f + sin(glfwGetTime()) * 4.0f,  2.0f, -5.0f + -cos(glfwGetTime()) * 4.0f),
+		glm::vec3(5.0f - sin(glfwGetTime()) * 4.0f,  0.0f, -3.0f + cos(glfwGetTime()) * 4.0f)
+		};
+
 		//per-frame time logic
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -100,25 +115,42 @@ int main() {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//lighting
-		setPointLight(ourShader, glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(-3.0f, 5.0f, -7.0f), glm::vec3(1.0f), 1.0f, 0.09, 0.032, 1);
+		ourShader.use();
 
 		//define model, camera and projection matrices
 		//-----------------------------------
-		ourShader.use();
 		glm::mat4 view = camera.GetViewMatrix();
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
 		ourShader.setMat4("view", view);
 		ourShader.setMat4("projection", projection);
 
-		//send model matricies to shaders
-		//container model translation and scaling			
+		//model translation and scaling			
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f));
+		model = glm::scale(model, glm::vec3(0.75f));
+		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		ourShader.setMat4("model", model);
+		//lighting
+		for (int i = 0; i < 4; i++) {
+			setPointLight(ourShader, pointLightColors[i], pointLightPositions[i], glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09, 0.032, i);
+		}
 		backpack.Draw(ourShader);
 
+		//lamp translation and scaling
+		lampShader.use();
+		lampShader.setMat4("view", view);
+		lampShader.setMat4("projection", projection);
+		for (int i = 0; i < 4; i++) {
+			model = glm::mat4(1.0f);
+			model = glm::translate(model, pointLightPositions[i]);
+			model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			model = glm::scale(model, glm::vec3(0.4f));
+			lampShader.setMat4("model", model);
+			lampShader.setVec3("color", pointLightColors[i]);
+			lamp.Draw(lampShader);
+		}
 		//check and call events and swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -205,7 +237,7 @@ void setDirectionalLight(Shader shader, glm::vec3 color, glm::vec3 direction, gl
 //sets point light
 void setPointLight(Shader shader, glm::vec3 color, glm::vec3 position, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, int pointLightNumber) {
 	string pointLightNum = to_string(pointLightNumber);
-	glm::vec3 diffuseColor = color * glm::vec3(0.5f);
+	glm::vec3 diffuseColor = color * glm::vec3(1.0f);
 	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
 
 	shader.setVec3("pointLights[" + pointLightNum + "].position", position);

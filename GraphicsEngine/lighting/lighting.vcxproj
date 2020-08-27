@@ -78,8 +78,8 @@
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Tony\Dropbox\Libs and Includes\Includes</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Tony\Dropbox\Libs and Includes\Libraries</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Tony\Dropbox\Libraries &amp; Includes\Includes</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Tony\Dropbox\Libraries &amp; Includes\Libraries</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -154,20 +154,14 @@
     <ClCompile Include="lighting.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\assimp\Importer.hpp" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\assimp\postprocess.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\assimp\scene.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Camera\Camera.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\glad\glad.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\GLFW\glfw3.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Mesh\Mesh.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Model\Model.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\Shader\Shader.h" />
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libs and Includes\Includes\stb\stb_image.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\backpack\backpack.fs" />
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\backpack\backpack.vs" />
     <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.fs" />
     <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Mesh\Mesh.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Model\Model.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
