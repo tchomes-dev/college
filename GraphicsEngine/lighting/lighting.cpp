@@ -9,6 +9,7 @@
 #include <Shader/Shader.h>
 #include <Camera/Camera.h>
 #include <Model/Model.h>
+#include <Light/Light.h>
 
 #include <iostream>
 
@@ -19,7 +20,7 @@ using namespace std;
 const unsigned int width = 800;
 const unsigned int height = 600;
 
-//camera
+//camera setup
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 bool firstMouse = true;
 float lastX = width / 2;
@@ -36,9 +37,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
-void setDirectionalLight(Shader shader, glm::vec3 color, glm::vec3 direction, glm::vec3 specular);
-void setPointLight(Shader shader, glm::vec3 color, glm::vec3 position, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, int pointLightNumber);
-void setSpotLight(Shader shader, glm::vec3 color, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, float cutOff, float outerCutOff);
 
 int main() {
 
@@ -73,7 +71,7 @@ int main() {
 	}
 
 	stbi_set_flip_vertically_on_load(true);
-
+	
 	//build and compile our shader program
 	//-----------------------------------
 	Shader ourShader("C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.vs", "C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.fs");
@@ -83,9 +81,11 @@ int main() {
 	Model backpack("C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.obj");
 	Model lamp("C:/Users/Tony/Dropbox/Model_Data/lamp/lamp.obj");
 
+	//Light setup
+	Light light(ourShader, camera);
+
 	//set up vertex data (and buffer(s)) and configure vertex attributes
 	//-----------------------------------
-
 	glm::vec3 pointLightColors[] = {
 		glm::vec3(1.0f),
 		glm::vec3(1.0f, 0.0f, 0.0f),
@@ -130,13 +130,14 @@ int main() {
 		model = glm::scale(model, glm::vec3(0.75f));
 		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		ourShader.setMat4("model", model);
+
 		//lighting
 		for (int i = 0; i < 4; i++) {
-			setPointLight(ourShader, pointLightColors[i], pointLightPositions[i], glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09, 0.032, i);
+			light.setPointLight(pointLightColors[i], pointLightPositions[i], glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09, 0.032, i);
 		}
 		backpack.Draw(ourShader);
 
-		//lamp translation and scaling
+		//lamp postitional translation and scaling
 		lampShader.use();
 		lampShader.setMat4("view", view);
 		lampShader.setMat4("projection", projection);
@@ -221,47 +222,4 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
 //-------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
-}
-
-//sets directional light
-void setDirectionalLight(Shader shader, glm::vec3 color, glm::vec3 direction, glm::vec3 specular) {
-	glm::vec3 diffuseColor = color * glm::vec3(0.5f);
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-
-	shader.setVec3("dirLight.direction", direction);
-	shader.setVec3("dirLight.ambient", ambientColor);
-	shader.setVec3("dirLight.diffuse", diffuseColor);
-	shader.setVec3("dirLight.specular", specular);
-}
-
-//sets point light
-void setPointLight(Shader shader, glm::vec3 color, glm::vec3 position, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, int pointLightNumber) {
-	string pointLightNum = to_string(pointLightNumber);
-	glm::vec3 diffuseColor = color * glm::vec3(1.0f);
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-
-	shader.setVec3("pointLights[" + pointLightNum + "].position", position);
-	shader.setVec3("pointLights[" + pointLightNum + "].ambient", ambientColor);
-	shader.setVec3("pointLights[" + pointLightNum + "].diffuse", diffuseColor);
-	shader.setVec3("pointLights[" + pointLightNum + "].specular", specular);
-	shader.setFloat("pointLights[" + pointLightNum + "].constant", attenuationConstant);
-	shader.setFloat("pointLights[" + pointLightNum + "].linear", attenuationLinear);
-	shader.setFloat("pointLights[" + pointLightNum + "].quadratic", attenuationQuadratic);
-}
-
-//sets spotlight
-void setSpotLight(Shader shader, glm::vec3 color, glm::vec3 specular, float attenuationConstant, float attenuationLinear, float attenuationQuadratic, float cutOff, float outerCutOff) {
-	glm::vec3 diffuseColor = color * glm::vec3(0.5f);
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-
-	shader.setVec3("flashlight.direction", camera.Front);
-	shader.setVec3("flashlight.position", camera.Position);
-	shader.setVec3("flashlight.ambient", ambientColor);
-	shader.setVec3("flashlight.diffuse", diffuseColor);
-	shader.setVec3("flashlight.specular", specular);
-	shader.setFloat("flashlight.constant", attenuationConstant);
-	shader.setFloat("flashlight.linear", attenuationLinear);
-	shader.setFloat("flashlight.quadratic", attenuationQuadratic);
-	shader.setFloat("flashlight.cutOff", cutOff);
-	shader.setFloat("flashlight.outerCutOff", outerCutOff);
 }
