@@ -1,0 +1,5 @@
+
+*.ipch
+*.db
+GraphicsEngine/lighting/.vs/lighting/v16/.suo
+*.vcxproj
