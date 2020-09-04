@@ -62,21 +62,4 @@
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
-<<<<<<< Updated upstream
-=======
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Model\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Mesh\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Shader\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Light\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
->>>>>>> Stashed changes
 </Project>
