@@ -160,8 +160,12 @@
     <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Camera\Camera.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Light\Light.h" />
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Mesh\Mesh.h" />
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Model\Model.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Shader\Shader.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\stb\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

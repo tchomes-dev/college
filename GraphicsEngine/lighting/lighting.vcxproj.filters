@@ -43,5 +43,17 @@
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Mesh\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Light\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Shader\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\stb\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
