@@ -78,7 +78,7 @@ int main() {
 	Shader lampShader("C:/Users/Tony/Dropbox/Model_Data/lamp/lampShader.vs", "C:/Users/Tony/Dropbox/Model_Data/lamp/lampShader.fs");
 
 	//load model (replace with path to obj file)
-	Model backpack("C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.obj");
+	Model backpack("C:/Users/Tony/Dropbox/Model_Data/sponza/sponza.obj");
 	Model lamp("C:/Users/Tony/Dropbox/Model_Data/lamp/lamp.obj");
 
 	//Light setup
@@ -127,8 +127,8 @@ int main() {
 		//model translation and scaling			
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.75f));
-		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.02f));
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		ourShader.setMat4("model", model);
 
 		//lighting
