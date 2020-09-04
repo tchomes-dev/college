@@ -160,10 +160,17 @@
     <ClInclude Include="Model.h" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <None Include="object data\cube\cubeColor.fs" />
     <None Include="object data\cube\cubeColor.vs" />
     <None Include="object data\lamp\lampShader.fs" />
     <None Include="object data\lamp\lampShader.vs" />
+=======
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Light\Light.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Mesh\Mesh.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Model\Model.h" />
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Shader\Shader.h" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
