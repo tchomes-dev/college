@@ -73,8 +73,20 @@ int main() {
 
 	//build and compile our shader program
 	//-----------------------------------
+<<<<<<< Updated upstream
 	Shader cubeShader("object data/cube/cubeColor.vs", "object data/cube/cubeColor.fs");
 	Shader lampShader("object data/lamp/lampShader.vs", "object data/lamp/lampShader.fs");
+=======
+	Shader ourShader("C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.vs", "C:/Users/Tony/Dropbox/Model_Data/backpack/backpack.fs");
+	Shader lampShader("C:/Users/Tony/Dropbox/Model_Data/lamp/lampShader.vs", "C:/Users/Tony/Dropbox/Model_Data/lamp/lampShader.fs");
+
+	//load model (replace with path to obj file)
+	Model backpack("C:/Users/Tony/Dropbox/Model_Data/sponza/sponza.obj");
+	Model lamp("C:/Users/Tony/Dropbox/Model_Data/lamp/lamp.obj");
+
+	//Light setup
+	Light light(ourShader, camera);
+>>>>>>> Stashed changes
 
 	//set up vertex data (and buffer(s)) and configure vertex attributes
 	//-----------------------------------
@@ -212,6 +224,7 @@ int main() {
 		//-----------------------------------
 		cubeShader.use();
 		glm::mat4 view = camera.GetViewMatrix();
+<<<<<<< Updated upstream
 		glm::mat4 projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
 		cubeShader.setVec3("viewPos", camera.Position);
@@ -243,6 +256,22 @@ int main() {
 			//render container
 			glBindVertexArray(VAO);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
+=======
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, 0.1f, 100.0f);
+		ourShader.setMat4("view", view);
+		ourShader.setMat4("projection", projection);
+
+		//model translation and scaling			
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.01f));
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		ourShader.setMat4("model", model);
+
+		//lighting
+		for (int i = 0; i < 4; i++) {
+			light.setPointLight(pointLightColors[i], pointLightPositions[i], glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09, 0.032, i);
+>>>>>>> Stashed changes
 		}
 
 		//draw lamp and set colors
