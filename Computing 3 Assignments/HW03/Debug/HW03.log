@@ -1,0 +1,8 @@
+﻿  hw3.cpp
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(45,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(46,21): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(47,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(48,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(50,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(51,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  HW03.vcxproj -> C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\Debug\HW03.exe

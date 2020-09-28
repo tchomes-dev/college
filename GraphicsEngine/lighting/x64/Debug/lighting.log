@@ -20,8 +20,13 @@ C:\Users\Tony\Dropbox\Projects\C++ Projects\lighting\lighting.cpp(335,28): warni
 ﻿  lighting.cpp
 C:\Users\Tony\Dropbox\Libraries & Includes\Includes\Shader\Shader.h(56,40): warning C4101: 'e': unreferenced local variable
 C:\Users\Tony\Dropbox\Libraries & Includes\Includes\Mesh\Mesh.h(85,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+<<<<<<< Updated upstream
 C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(106,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(136,123): warning C4305: 'argument': truncation from 'double' to 'float'
+=======
+C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(99,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(136,118): warning C4305: 'argument': truncation from 'double' to 'float'
+>>>>>>> Stashed changes
 C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(205,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(206,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\Tony\Documents\GitHub\box\GraphicsEngine\lighting\lighting.cpp(209,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data

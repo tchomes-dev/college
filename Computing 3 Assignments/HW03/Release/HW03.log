@@ -1,0 +1,9 @@
+﻿  hw3.cpp
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(41,31): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\hw3.cpp(42,31): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Generating code
+  4 of 20 functions (20.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  HW03.vcxproj -> C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW03\Release\HW03.exe

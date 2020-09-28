@@ -15,8 +15,8 @@ using namespace std;
 
 //settings
 //---------------------
-const unsigned int width = 800;
-const unsigned int height = 600;
+const unsigned int width = 1280;
+const unsigned int height = 720;
 
 //camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -202,9 +202,16 @@ int main() {
 	//render loop
 	while (!glfwWindowShouldClose(window)) {
 		//per-frame time logic
-		float currentFrame = glfwGetTime();
+		float currentFrame = glfwGetTime() * 3;
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+
+		glm::vec3 pointLightPositions[] = {
+		glm::vec3(sin(currentFrame) * 10.0f,  0.0f,  4.0f + -cos(currentFrame) * 10.0f),
+		glm::vec3(2.3f, 3.3f -sin(currentFrame) * 10.0f, -4.0f + cos(currentFrame) * 10.0f),
+		glm::vec3(-4.0f + sin(currentFrame) * 10.0f,  2.0f, -5.0f + -cos(currentFrame) * 10.0f),
+		glm::vec3(5.0f - sin(currentFrame) * 10.0f,  0.0f, -3.0f + cos(currentFrame) * 10.0f)
+		};
 
 		//input
 		processInput(window);
@@ -263,8 +270,13 @@ int main() {
 
 		//model translation and scaling			
 		glm::mat4 model = glm::mat4(1.0f);
+<<<<<<< Updated upstream
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.01f));
+=======
+		model = glm::translate(model, glm::vec3(0.0f, -5.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.02f));
+>>>>>>> Stashed changes
 		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		ourShader.setMat4("model", model);
 
