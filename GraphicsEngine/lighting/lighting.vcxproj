@@ -78,14 +78,17 @@
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Tony\Dropbox\Libs and Includes\Includes</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Tony\Dropbox\Libs and Includes\Libraries</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Tony\Dropbox\Libraries &amp; Includes\Includes</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Tony\Dropbox\Libraries &amp; Includes\Libraries</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\Tony\Dropbox\Libraries &amp; Includes\Includes</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\Tony\Dropbox\Libraries &amp; Includes\Libraries</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,34 +146,26 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="lighting.cpp" />
-    <ClCompile Include="Model.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\Camera\Camera.h" />
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\glad\glad.h" />
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\GLFW\glfw3.h" />
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\Shader\Shader.h" />
-    <ClInclude Include="..\..\..\Libs and Includes\Includes\stb\stb_image.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\backpack\backpack.fs" />
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\backpack\backpack.vs" />
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.fs" />
+    <None Include="..\..\..\..\..\Dropbox\Model_Data\lamp\lampShader.vs" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
-    <None Include="object data\cube\cubeColor.fs" />
-    <None Include="object data\cube\cubeColor.vs" />
-    <None Include="object data\lamp\lampShader.fs" />
-    <None Include="object data\lamp\lampShader.vs" />
-=======
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Camera\Camera.h" />
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Light\Light.h" />
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Mesh\Mesh.h" />
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Model\Model.h" />
     <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\Shader\Shader.h" />
->>>>>>> Stashed changes
+    <ClInclude Include="..\..\..\..\..\Dropbox\Libraries &amp; Includes\Includes\stb\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
