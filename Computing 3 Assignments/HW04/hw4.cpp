@@ -1,3 +1,10 @@
+/***********************************************
+Author: <Tony Choma>
+Date: <9-28-2020>
+Purpose: <Zip code and bar code interpreter>
+Sources of Help: <N/A>
+Time Spent: <5 hours>
+***********************************************/
 #include <iostream>
 #include <string>
 using namespace std;
@@ -6,9 +13,11 @@ class ZipCode {
 public:
     ZipCode(int zipCode) {
         this->zipCode = zipCode;
+        this->barCode = convertToBar(zipCode);
     }
     ZipCode(string barCode) {
         this->barCode = barCode;
+        this->zipCode = convertToZip(barCode);
     }
     int getZipCode() {
         return zipCode;
@@ -19,9 +28,130 @@ public:
 private:
     int zipCode = 0;
     string barCode = "";
-    const char code[5] = {'7', '4', '2', '1', '0'};
+    
+    int convertToZip(string barCode) {
+        int result = 0;
+        string r = "";
+        if (initialErrorCheck(barCode) == false) {
+            for (int i = 1; i + 5 < barCode.length(); i += 5) {
+                int index = 0;
+                int oneCounter = 0;
+                int value = 0;
 
+                for (int j = i; (j < i + 5) && (i + 5 < barCode.length() - 2); j++) {
+                    if (barCode[j] != '1' && barCode[j] != '0') {
+                        cout << "ERROR::WRONG BARCODE::CAN ONLY CONTAIN '0' and '1'" << endl;
+                    } 
+                    if (oneCounter > 2) {
+                        cout << "ERROR::TOO MANY 1's IN A BLOCK OF 5" << endl;
+                    }
+                    if (index == 0) {
+                        if (barCode[j] == '1') {
+                            oneCounter++;
+                            value += 7;
+                        }
+                    } else if (index == 1) {
+                        if (barCode[j] == '1') {
+                            oneCounter++;
+                            value += 4;
+                        }
+                    } else if (index == 2) {
+                        if (barCode[j] == '1') {
+                            oneCounter++;
+                            value += 2;
+                        }
+                    } else if (index == 3) {
+                        if (barCode[j] == '1') {
+                            oneCounter++;
+                            value++;
+                        }
+                    } else if (index == 4) {
+                        if (barCode[j] == '1') {
+                            oneCounter++;
+                        }
+                    }
+                    index++;
+                }
+                if (value == 11) {
+                    r += "0";
+                }
+                else {
+                    r += to_string(value);
+                }
+            }
+        }
+        cout << r << endl;
+        return result = stoi(r);
+    }
 
+    string convertToBar(int zipCode) {
+        int index = 0;
+        int zip[5] = { 0,0,0,0,0 };
+        while (zipCode) {
+            zip[index++] = zipCode % 10;
+            zipCode /= 10;
+        }
+
+        string result = "1";
+        int value = 0;
+        for (int i = 0; i < 5; i++) {
+            int oneCounter = 0;
+            if (zip[i] == 0) {
+                result += "11000";
+            } else {
+                if (7 <= zip[i] && oneCounter < 2) {
+                    value += 7;
+                    result += "1";
+                    oneCounter++;
+                }
+                else {
+                    result += "0";
+                }
+                if (4 + value <= zip[i] && oneCounter < 2) {
+                    value += 4;
+                    result += "1";
+                    oneCounter++;
+                }
+                else {
+                    result += "0";
+                }
+                if (2 + value <= zip[i] && oneCounter < 2) {
+                    value += 2;
+                    result += "1";
+                    oneCounter++;
+                }
+                else {
+                    result += "0";
+                }
+                if (1 + value <= zip[i] && oneCounter < 2) {
+                    value++;
+                    result += "1";
+                    oneCounter++;
+                }
+                else {
+                    result += "0";
+                }
+                if (value <= zip[i] && oneCounter < 2) {
+                    result += "1";
+                    oneCounter++;
+                }
+                else {
+                    result += "0";
+                }
+            }
+        }
+        return result += "1";
+    }
+
+    bool initialErrorCheck(string barCode) {
+        cout << barCode.length();
+        cout << barCode[0] << barCode[barCode.length() - 1];
+        if (barCode[0] != '1' || barCode[barCode.length() - 1] != '1') {
+            cout << "ERROR::WRONG BARCODE::WRONG START/END CHARACTER" << endl;
+            return true;
+        } 
+        return false;
+    }
 };
 
 int main(int argc, char * argv[]) {
@@ -98,3 +228,24 @@ int main(int argc, char * argv[]) {
     cin >> c;
     return 0;
 }
+
+/*
+Computing III -- COMP.2010 Honor Statement
+The practice of good ethical behavior is essential for maintaining
+good order in the classroom, providing an enriching learning
+experience for students, and as training as a practicing computing
+professional upon graduation. This practice is manifested in the
+University’s Academic Integrity policy. Students are expected to
+strictly avoid academic dishonesty and adhere to the Academic
+Integrity policy as outlined in the course catalog. Violations will
+be dealt with as outlined therein.
+All programming assignments in this class are to be done by the
+student alone. No outside help is permitted except the instructor and
+approved tutors.
+I certify that the work submitted with this assignment is mine and was
+generated in a manner consistent with this document, the course
+academic policy on the course website on Blackboard, and the UMass
+Lowell academic code.
+Date: 9-28-2020
+Name: Tony Choma
+*/
