@@ -15,10 +15,10 @@ public:
     bool operator>(const Rational& b);
     bool operator>=(const Rational& b);
     // arithmtic operator overload declarations
-    Rational operator+(const Rational b);
-    Rational operator-(const Rational b);
-    Rational operator*(const Rational b);
-    Rational operator/(const Rational b);
+    Rational* operator+(const Rational b);
+    Rational* operator-(const Rational b);
+    Rational* operator*(const Rational b);
+    Rational* operator/(const Rational b);
     // input/output operator overload declarations
     ostream& operator<<(ostream& out);
     istream& operator>>(istream& in);
@@ -46,48 +46,28 @@ Rational::Rational(int initNumerator, int initDenominator) {
 }
 
 // relational operator overload definition
-bool Rational::operator==(const Rational& b) {
+bool Rational::operator==(const Rational& b) { return false; }
 
-}
+bool Rational::operator<(const Rational& b) { return false; }
 
-bool Rational::operator<(const Rational& b) {
+bool Rational::operator<=(const Rational& b) { return false; }
 
-}
+bool Rational::operator>(const Rational& b) { return false; }
 
-bool Rational::operator<=(const Rational& b) {
-    
-}
-
-bool Rational::operator>(const Rational& b) {
-
-}
-
-bool Rational::operator>=(const Rational& b) {
-
-}
+bool Rational::operator>=(const Rational& b) { return false; }
 
 // arithmetic operator overload definition
-Rational Rational::operator+(const Rational b) {
+Rational* Rational::operator+(const Rational b) { return this; }
 
-}
+Rational* Rational::operator-(const Rational b) { return this; }
 
-Rational Rational::operator-(const Rational b) {
+Rational* Rational::operator*(const Rational b) { return this; }
 
-}
-
-Rational Rational::operator*(const Rational b) {
-
-}
-
-Rational Rational::operator/(const Rational b) {
-
-}
+Rational* Rational::operator/(const Rational b) { return this; }
 
 // input/output operator overload definition
-ostream& Rational::operator<<(ostream& out) {
+ostream& Rational::operator<<(ostream& out) { return out; }
 
-}
+istream& Rational::operator>>(istream& in) { return in; }
 
-istream& Rational::operator>>(istream& in) {
-
-}
+int main(int argv, char argc[]) { return 0; }

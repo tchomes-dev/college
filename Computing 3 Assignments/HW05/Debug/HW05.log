@@ -1,12 +1,2 @@
 ﻿  hw5.cpp
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(55): error C4716: 'Rational::operator<': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(51): error C4716: 'Rational::operator==': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(59): error C4716: 'Rational::operator<=': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(63): error C4716: 'Rational::operator>': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(67): error C4716: 'Rational::operator>=': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(80): error C4716: 'Rational::operator*': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(76): error C4716: 'Rational::operator-': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(84): error C4716: 'Rational::operator/': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(72): error C4716: 'Rational::operator+': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(89): error C4716: 'Rational::operator<<': must return a value
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\hw5.cpp(93): error C4716: 'Rational::operator>>': must return a value
+  HW05.vcxproj -> C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW05\Debug\HW05.exe
