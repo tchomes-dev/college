@@ -1,4 +1,4 @@
 ﻿  hw4.cpp
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW04\hw4.cpp(36,35): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW04\hw4.cpp(41,55): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW04\hw4.cpp(40,35): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW04\hw4.cpp(45,55): warning C4018: '<': signed/unsigned mismatch
   HW04.vcxproj -> C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW04\Debug\HW04.exe
