@@ -54,7 +54,11 @@ bool Rational::operator==(const Rational& b) {
 }
 
 bool Rational::operator<(const Rational& b) { 
-
+    if (this->denominator > 0 && b.denominator > 0) {
+        if (this->numerator * b.denominator < b.numerator * this->denominator) {
+            return true;
+        }
+    }
     return false; 
 }
 
@@ -62,10 +66,20 @@ bool Rational::operator<=(const Rational& b) {
     if (this->numerator * b.denominator == this->denominator * b.numerator) {
         return true;
     }
+    if (this->denominator > 0 && b.denominator > 0) {
+        if (this->numerator * b.denominator < b.numerator * this->denominator) {
+            return true;
+        }
+    }
     return false; 
 }
 
 bool Rational::operator>(const Rational& b) { 
+    if (this->denominator > 0 && b.denominator > 0){
+        if (b.numerator * this->denominator < this->numerator * b.denominator) {
+            return true;
+        }
+    }
     return false; 
 }
 
@@ -73,7 +87,11 @@ bool Rational::operator>=(const Rational& b) {
     if (this->numerator * b.denominator == this->denominator * b.numerator) {
         return true;
     }
-
+    if (this->denominator > 0 && b.denominator > 0) {
+        if (b.numerator * this->denominator < this->numerator * b.denominator) {
+            return true;
+        }
+    }
     return false; 
 }
 
