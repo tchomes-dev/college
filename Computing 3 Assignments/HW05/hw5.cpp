@@ -22,6 +22,8 @@ public:
     // input/output operator overload declarations
     ostream& operator<<(ostream& out);
     istream& operator>>(istream& in);
+    //other
+
 
 
 private:
