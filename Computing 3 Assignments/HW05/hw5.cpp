@@ -46,28 +46,64 @@ Rational::Rational(int initNumerator, int initDenominator) {
 }
 
 // relational operator overload definition
-bool Rational::operator==(const Rational& b) { return false; }
+bool Rational::operator==(const Rational& b) { 
+    if (this->numerator * b.denominator == this->denominator * b.numerator) {
+        return true;
+    }
+    return false; 
+}
 
-bool Rational::operator<(const Rational& b) { return false; }
+bool Rational::operator<(const Rational& b) { 
 
-bool Rational::operator<=(const Rational& b) { return false; }
+    return false; 
+}
 
-bool Rational::operator>(const Rational& b) { return false; }
+bool Rational::operator<=(const Rational& b) { 
+    if (this->numerator * b.denominator == this->denominator * b.numerator) {
+        return true;
+    }
+    return false; 
+}
 
-bool Rational::operator>=(const Rational& b) { return false; }
+bool Rational::operator>(const Rational& b) { 
+    return false; 
+}
+
+bool Rational::operator>=(const Rational& b) { 
+    if (this->numerator * b.denominator == this->denominator * b.numerator) {
+        return true;
+    }
+
+    return false; 
+}
 
 // arithmetic operator overload definition
-Rational* Rational::operator+(const Rational b) { return this; }
+Rational* Rational::operator+(const Rational b) { 
+    return this;
+}
 
-Rational* Rational::operator-(const Rational b) { return this; }
+Rational* Rational::operator-(const Rational b) { 
+    return this;
+}
 
-Rational* Rational::operator*(const Rational b) { return this; }
+Rational* Rational::operator*(const Rational b) { 
+    return this;
+}
 
-Rational* Rational::operator/(const Rational b) { return this; }
+Rational* Rational::operator/(const Rational b) { 
+    return this;
+}
 
 // input/output operator overload definition
-ostream& Rational::operator<<(ostream& out) { return out; }
+ostream& Rational::operator<<(ostream& out) { 
+    out << numerator << "/" << denominator;
+    return out; 
+}
 
-istream& Rational::operator>>(istream& in) { return in; }
+istream& Rational::operator>>(istream& in) { 
+    return in; 
+}
 
-int main(int argv, char argc[]) { return 0; }
+int main(int argv, char argc[]) { 
+    return 0; 
+}
