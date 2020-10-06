@@ -2,7 +2,7 @@
 Author: <Tony Choma>
 Date: <10-6-2020>
 Purpose: <Overload operators to support a custom class for rational numbers>
-Sources of Help: <stackoverflow, wikipedia>
+Sources of Help: <stackoverflow, wikipedia, tutorialspoint, geeksforgeeks>
 Time Spent: <5 hours>
 ***********************************************/
 
@@ -23,13 +23,13 @@ public:
     bool operator>(const Rational& b);
     bool operator>=(const Rational& b);
     // arithmtic operator overload declarations
-    Rational* operator+(Rational& b);
-    Rational* operator-(Rational& b);
-    Rational* operator*(Rational& b);
-    Rational* operator/(Rational& b);
+    Rational operator+(Rational& b);
+    Rational operator-(Rational& b);
+    Rational operator*(Rational& b);
+    Rational operator/(Rational& b);
     // input/output operator overload declarations
-    ostream& operator<<(ostream& out);
-    istream& operator>>(istream& in);
+    friend ostream& operator<<(ostream& out, const Rational& a);
+    friend istream& operator>>(istream& in, Rational& a);
     //other
 
 private:
@@ -53,14 +53,9 @@ Rational::Rational(int initWholeNumber) {
 }
 
 Rational::Rational(int initNumerator, int initDenominator) {
-    if (initDenominator < 0) {
-        initNumerator *= -1;
-        initDenominator *= -1;
-    } else {
-        this->numerator = initNumerator;
-        this->denominator = initDenominator;
-    }
-
+    this->numerator = initNumerator;
+    this->denominator = initDenominator;
+    simplify(*this);
 }
 
 // relational operator overload definition
@@ -114,40 +109,49 @@ bool Rational::operator>=(const Rational& b) {
 }
 
 // arithmetic operator overload definition
-Rational* Rational::operator+(Rational& b) { 
-    this->numerator = (this->numerator * b.denominator) + (this->denominator * b.numerator);
-    this->denominator *= b.denominator;
-    return this;
+Rational Rational::operator+(Rational& b) { 
+    Rational result;
+    result.numerator = (this->numerator * b.denominator) + (this->denominator * b.numerator);
+    result.denominator = this->denominator * b.denominator;
+    simplify(result);
+    return result;
 }
 
-Rational* Rational::operator-(Rational& b) { 
-    this->numerator = (this->numerator * b.denominator) - (this->denominator * b.numerator);
-    this->denominator *= b.denominator;
-    simplify(*this);
-    return this;
+Rational Rational::operator-(Rational& b) { 
+    Rational result;
+    result.numerator = (this->numerator * b.denominator) - (this->denominator * b.numerator);
+    result.denominator = this->denominator * b.denominator;
+    simplify(result);
+    return result;
 }
 
-Rational* Rational::operator*(Rational& b) { 
-    this->numerator *= b.numerator;
-    this->denominator *= b.denominator;
-    simplify(*this);
-    return this;
+Rational Rational::operator*(Rational& b) { 
+    Rational result;
+    result.numerator = this->numerator * b.numerator;
+    result.denominator = this->denominator * b.denominator;
+    simplify(result);
+    return result;
 }
 
-Rational* Rational::operator/(Rational& b) { 
-    this->numerator *= b.denominator;
-    this->denominator *= b.numerator;
-    simplify(*this);
-    return this;
+Rational Rational::operator/(Rational& b) { 
+    Rational result;
+    result.numerator = this->numerator * b.denominator;
+    result.denominator = this->denominator * b.numerator;
+    simplify(result);
+    return result;
 }
 
 // input/output operator overload definition
-ostream& Rational::operator<<(ostream& out) { 
-    out << numerator << "/" << denominator;
+ostream& operator<<(ostream& out, const Rational& a) { 
+    out << a.numerator << "/" << a.denominator;
     return out; 
 }
 
-istream& Rational::operator>>(istream& in) { 
+istream& operator>>(istream& in, Rational& a) { 
+    cout << "Enter numerator";
+    cin >> a.numerator;
+    cout << "Enter denominator";
+    cin >> a.denominator;
     return in; 
 }
 
@@ -177,11 +181,18 @@ void Rational::simplify(Rational& a) {
     int gcd = greatestCommDenom(a);
     a.numerator /= gcd;
     a.denominator /= gcd;
+    if (a.denominator < 0) {
+        a.numerator *= -1;
+        a.denominator *= -1;
+    }
 }
 
 int main(int argv, char argc[]) { 
-    Rational a(1, 2);
-    Rational b(1, 6);
+    Rational a(1, -2);
+    cout << a << endl;
+    Rational b(1, 4);
+    a = a + b;
+    cout << a << endl;
     return 0; 
 }
 
