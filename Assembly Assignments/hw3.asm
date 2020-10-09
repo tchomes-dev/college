@@ -12,9 +12,10 @@ tabToken: .word	0:30		# 10-entry token table
 #	MAIN Driver
 #
 #		$t3:	index to inBuf
-#		   :	index to TOKEN
-#		   :	index to tabToken
-#		#t9:	curChar
+#		$t4:	index to TOKEN
+#		$t5:	tokSpace
+#		$t6:	index to tabToken
+#		$t9:	curChar
 #
 #		$s0:	T
 #		$s1:	CUR
@@ -25,9 +26,12 @@ newLine:
 	jal	getline
 
 	li	$t3, 0		# index to inBuf
+	li	$t4, 0		# index to TOKEN
 	
 	la	$s1, Q0		# CUR = Q0
 	li	$s0, 1		# T = 1
+	li 	$t5, 8		# tokSpace = 8
+	
 nextState:	
 	lw	$s2, 0($s1)	# $s2 = STAB[CUR][0]
 	jalr	$v1, $s2	# Call action; Save return addr in $v1
@@ -43,7 +47,7 @@ dump:	jal	printTabToken
 	jal	clearTabToken
 	b	newLine
 	
-###################3
+####################
 #
 #	ACT1:
 #
@@ -52,17 +56,20 @@ dump:	jal	printTabToken
 ####################
 ACT1:
 	lb	$t9,inBuf($t3)		# curChar = inBuf[i]
-	jal	lin_search		# T = lin_search($t0)
+	jal	lin_search		# T = lin_search($t9)
 	addi	$t3, $t3, 1		# i++
 	jr	$v1
 	
 
 ACT2:
-
+	sb 	$t9, TOKEN($t4)		#TOKEN = curChar
+	
+	subi	$t5, $t5, 1		#tokSpace - 1
+	addi 	$t3, $t3, 1
 	jr	$v1
 
 ACT3:
-
+	
 	jr	$v1
 
 ACT4:
@@ -103,25 +110,121 @@ getline:
 
 	jr	$ra
 	
-	
-	
-lin_search:
+#############################################
+#
+#  printTabToken:
+#	print Token table header
+#	copy each entry of tabToken into outBuf
+#	   and print TOKEN
+#	$a3 has the index (in bytes) to the last entry of tabToken
+#
+#############################################
+		.data
+outBuf:		.word	0:3			# copy token entry to outBuf to print
+tableHead:	.asciiz "TOKEN    TYPE\n"
 
-	jr	$ra
-
+		.text
 printTabToken:
+		li	$t7, 0x20		# blank in $t7
+		li	$t6, '\n'		# newline in $t6
+
+		la	$a0, tableHead		# print table heading
+		li	$v0, 4
+		syscall
+
+		li	$t0, 0
+loopTok:	bge	$t0, $a3, doneTok	# if ($t0 <= $a3)
+	
+		lw	$t1, tabToken($t0)	#   copy tabToken[] into outBuf
+		sw	$t1, outBuf
+		lw	$t1, tabToken+4($t0)
+		sw	$t1, outBuf+4
+	
+		li	$t9, -1			# for each char in outBuf
+loopChar:	addi	$t9, $t9, 1
+		bge	$t9, 8, tokType		
+		lb	$t8, outBuf($t9)		#   if char == Null
+		bne	$t8, $zero, loopChar	
+		sb	$t7, outBuf($t9)		#       replace it by ' ' (0x20)
+		b	loopChar
+tokType:
+		sb	$t7, outBuf+8		# insert blank
+		lb	$t1, tabToken+8($t0)	# $t1 = token type
+		addi	$t1, $t1, 0x30		# ASCII(token type)
+		sb	$t1, outBuf+9
+		sb	$t6, outBuf+10		# terminate with '\n'
+		sb	$0, outBuf+11
+		
+		la	$a0, outBuf		# print token and its type
+		li	$v0, 4
+		syscall
+	
+		addi	$t0, $t0, 12
+		sw	$0, outBuf		# clear outBuf
+		sw	$0, outBuf+4
+		b	loopTok
+
+doneTok:
+		jr	$ra
+
+##############################
+#
+# lin_search()
+#	argument - $t9 for key
+#	return val - $a0 for char type
+#
+#############################
+lin_search:
+	li $t2, 0    #int i=0
+	li $t3, 0    #int found=0, 1 = true, 0 = false
+loopTwo:
+	bge $t2, 80, return    #if (i >= n) goto return
+	bne $t3, 0, return     #if (found) goto return
+	
+	sll $t2, $t2, 3        #shift to ext element
+	lb  $a0, Tabchar($t2)  #load Tabchar[i] to the memory
+	sra $t2, $t2, 3	       #shift back
+	
+	bne $a0, $t9, iterate   #if (Tabchar[i] != key) goto iterate
+	li $t3, 1 #found = 1
+iterate: 
+	addi $t2, $t2, 1 #i++
+	b loopTwo #goto loopTwo
+return: 
+	beq $t3, 0, error #if (i >= n)
+	subi $t2, $t2, 1 
+	sll $t2, $t2, 3 #shift to the ext element
+	lw $a0 Tabchar+4($t2) #return the char type
+	sra $t2, $t2, 3 #shift back to element
+	jr	$ra
+error: 
+	li $a0, -1 #return failure
+	jr 	$ra 
 
 	jr	$ra
 	
+#######################
+#
+# clearBuf():
+#
+#######################
 clearInBuf:
+	li $t4, 0 #int i = 0
+repeat: 
+	bge $t4, 80, clear #if (1 >= n) goto return
+	sb $zero, inBuf($t4) #clear the inBuf/ inBuf(i) = null
+	
+	addi $t4, $t4, 1 #i++
+	b repeat #loop
+clear:
+	jr	$ra
 
 	jr	$ra
+	
 	
 clearTabToken:
 
 	jr	$ra
-	
-	
 	
 	
 	
