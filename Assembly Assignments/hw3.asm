@@ -5,7 +5,7 @@ TOKEN:	.space	8
 tokSpace: .word 8
 TYPE:	.word	0
 tabToken: .word	0:30		# 10-entry token table
-
+err: .ascii "Error"
 
 
 
@@ -86,7 +86,7 @@ ACT4:
 	jal	clearTok		# clear TOKEN
 	jr	$v1
 ERROR:
-    	la    $a0, error    #ERROR
+    	la    $a0, err    #ERROR
     	li    $v0, 4
     	syscall
     	b    dump
@@ -448,8 +448,7 @@ Q11:    .word  ERROR
 	
 Tabchar: 
 	.word 	0x0a, 6		# LF
-	.word 	' ', 5
- 	.word 	'#', 6
+ 	.word 	'#', 5
 	.word 	'$',4
 	.word 	'(', 4 
 
