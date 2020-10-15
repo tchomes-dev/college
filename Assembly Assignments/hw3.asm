@@ -5,7 +5,7 @@ TOKEN:	.space	8
 tokSpace: .word 8
 TYPE:	.word	0
 tabToken: .word	0:30		# 10-entry token table
-err: .ascii "Error"
+error: .ascii "Error"
 
 
 
@@ -15,8 +15,6 @@ err: .ascii "Error"
 #	MAIN Driver
 #
 #		$t3:	index to inBuf(i)
-#		   :	index to TOKEN(j)
-#		   :
 #		$t6:	index to tabToken
 #		$t9:	curChar
 #
@@ -29,7 +27,6 @@ newLine:
 	jal	getline
 
 	li	$t3, 0		# index to inBuf
-	li	$t4, 0		# index to TOKEN
 	
 	la	$s1, Q0		# CUR = Q0
 	li	$s0, 1		# T = 1
@@ -45,7 +42,7 @@ nextState:
 	b	nextState
 
 dump:	jal	printTabToken
-	jal	clearInBuf
+	jal	clearBuf
 	jal	clearTabToken
 	b	newLine
 	
@@ -58,50 +55,81 @@ dump:	jal	printTabToken
 #
 ####################
 ACT1:
-	lb	$t9,inBuf($t3)		# curChar = inBuf[i]
-	jal	lin_search		# returns T = lin_search($t9)
-	addi	$t3, $t3, 1		# i++
-	jr	$v1
-	
+    lb     $t9,inBuf($t3)        #ACT1: curChar = inBuf[i]
+    jal    lin_search        # T = lin_search($t0)
+    
+    addi   $t3, $t3, 1        # i++
+    jr	   $v1
 
 ACT2:
-	sb 	$t9, TOKEN($0)		#TOKEN[j] = curChar
-	li 	$t4, 1			#tokSpace = 1
-	jr	$v1
+    sb    $t9, TOKEN($zero)        #ACT2: TOKEN = curChar
+    li    $t4, 7            #TokSpace = 7
+    jr    $v1
 
 ACT3:
-	sb	$t9, TOKEN($t4)
-	addi	$t4, $t4, 1
-	jr	$v1
+    sb    $t9, TOKEN($t4)        #TOKEN = TOKEN + curChar
+    addi  $t4, $t4, 1        #TokSpace++
+    jr    $v1
 
 ACT4:
-        lw	$t0, TOKEN($0)		# get the first word from TOKEN
-	sw	$t0, tabToken($a3)	# save word to tokTab
-	lw	$t0, TOKEN+4($0)	# get second word from TOKEN
-	sw	$t0, tabToken+4($a3)	# save word to tokTab
-	lw	$t0, TOKEN+8($0)	# get Token data type
-	sw	$t0, tabToken+8($a3)	# save in tokTab
-	addi	$a3, $a3, 12		# update index in tokTab
-	
-	jal	clearTok		# clear TOKEN
-	jr	$v1
+    lw    $t0, TOKEN($0)        # get the first word from TOKEN
+    sw    $t0, tabToken($a3)    # save word to tokTab
+    lw    $t0, TOKEN+8($0)    # get Token data type
+    sw    $t0, tabToken+8($a3)    # save in tokTab
+    addi  $a3, $a3, 12        # update index in tokTab
+    
+    jal    clearTok        # clear TOKEN
+    jr    $v1
+        
 ERROR:
-    	la    $a0, err    #ERROR
-    	li    $v0, 4
-    	syscall
-    	b    dump
+    la    $t9, error    #ERROR
+    li    $v0, 4
+    syscall
+    b    dump
 RETURN:
-    	b    dump
+    b    dump
 
 clearTok:
-	li	$t9, 0x20202020
-	sw	$t9, TOKEN($0)		#set token to zero
-	sw	$t9, TOKEN+4($0)	#set token to zero
-	sw	$t9, TOKEN+8($0)	#set token to zero
+	li	$a0, 0
+	sw	$a0, TOKEN($0)		#set token to zero
+	sw	$a0, TOKEN+4($0)	#set token to zero
+	sw	$a0, TOKEN+8($0)	#set token to zero
 
 	jr	$ra
 
-
+##############################
+#
+# lin_search()
+#	argument - $t9 for key
+#	return val - $s0 for char type
+#
+#############################
+lin_search:
+    li $t5, 0            #int i=0
+    li $t8, 0            #int found=0
+loop2:
+    bge $t5, 80, return        #if (i >= n) goto return
+    bne $t8, 0, return        #if (found) goto return
+    
+    sll $t5, $t5, 3            #shift to ext element
+    lb  $s0, Tabchar($t5)        #load Tabchar[i] to the memory
+    sra $t5, $t5, 3                  #shift back
+    
+    bne $s0, $t9, next        #if (Tabchar[i] != key) goto next
+    li $t8, 1             #found = 1
+next: 
+    addi $t5, $t5, 1        #i++
+    b loop2                #goto loop2
+return: 
+    beq $t8, 0, err         #if (i >= n)
+    subi $t5, $t5, 1 
+    sll $t5, $t5, 3         #shift to the ext element
+    lw $s0 Tabchar+4($t5)         #return the char type
+    sra $t5, $t5, 3         #shift back to element
+    jr    $ra
+err: 
+    li $s0, -1             #return failure
+    jr $ra 
 
 ##########################3
 #
@@ -182,62 +210,41 @@ tokType:
 doneTok:
 		jr	$ra
 
-##################################################################
-#
-#  lin_search:
-#       Linear search of Tabchar
-#
-#       $t9: char key
-#       $s0: char type, T
-#
-#################################################################
-lin_search:
-	li $t2, 0    #int i=0
-	li $t3, 0    #int found=0, 1 = true, 0 = false
-loopTwo:
-	bge $t2, 80, return    #if (i >= n) goto return
-	bne $t3, 0, return     #if (found) goto return
-	
-	sll $t2, $t2, 3        #shift to ext element
-	lb  $s0, Tabchar($t2)  #load Tabchar[i] to the memory
-	sra $t2, $t2, 3	       #shift back
-	
-	bne $s0, $t9, iterate   #if (Tabchar[i] != key) goto iterate
-	li $t3, 1 #found = 1
-iterate: 
-	addi $t2, $t2, 1 #i++
-	b loopTwo #goto loopTwo
-return: 
-	beq $t3, 0, error #if (i >= n)
-	subi $t2, $t2, 1 
-	sll $t2, $t2, 3 #shift to the ext element
-	lw $s0 Tabchar+4($t2) #return the char type
-	sra $t2, $t2, 3 #shift back to element
-	jr	$ra
-error: 
-	li $s0, -1 #return failure
-	jr 	$ra 
+
 #######################
 #
 # clearBuf():
 #
 #######################
-clearInBuf:
+clearBuf:
 	li $t4, 0 #int i = 0
 repeat: 
 	bge $t4, 80, clear #if (1 >= n) goto return
-	sb $zero, inBuf($t4) #clear the inBuf/ inBuf(i) = null
+	sb $0, inBuf($t4) #clear the inBuf/ inBuf(i) = null
+	sb $0, outBuf($t4) #clear the outBuf/outBuf(i) = null
 	
 	addi $t4, $t4, 1 #i++
 	b repeat #loop
 clear:
 	jr	$ra
+	
 
+##########################################################
+#
+#    clears tabToken
+#
+##########################################################
 clearTabToken:
-
-	jr	$ra
-	
-	
+    li    $t3, 0x20                   # int i=0
+clearTokenRept:
+    bge   $t3, 60, clearTokenRet   # if (i>=n) goto ret
+    li    $t4, ' '
+    sb    $t4, tabToken($t3)
+    
+    addi    $t3, $t3, 1            # i++
+    b    clearTokenRept            # loop
+clearTokenRet:
+    jr    $ra                      # return
 
 	.data
 
@@ -448,8 +455,9 @@ Q11:    .word  ERROR
 	
 Tabchar: 
 	.word 	0x0a, 6		# LF
- 	.word 	'#', 5
-	.word 	'$',4
+	.word	' ', 5
+ 	.word 	'#', 6
+	.word 	'$', 4
 	.word 	'(', 4 
 
 	.word 	')', 4 
