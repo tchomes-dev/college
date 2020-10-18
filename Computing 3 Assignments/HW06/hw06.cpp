@@ -18,17 +18,60 @@ public:
         this->dynamicArray[nullptr];
         this->size = 0;
     }
+    DynamicStringArray(const DynamicStringArray& old);
+    ~DynamicStringArray();
+
+    DynamicStringArray operator=(const DynamicStringArray& old);
+
     //member functions
     int getSize() { return this->size; }
     void addEntry(string entry);
-    void deleteEntry(string entry);
-    string getEntry(int index);
+    bool deleteEntry(string entry);
+    string getEntry(int index) {};
     
 
 private:
     vector<string> dynamicArray;
-    int size;
+    int size;    
 };
+DynamicStringArray::DynamicStringArray(const DynamicStringArray& old) {
+    for (int i = 0; i <= size; i++) {
+        this->dynamicArray.push_back(old.dynamicArray.at(i));
+    }
+    this->size = old.size;
+}
+DynamicStringArray::~DynamicStringArray() {
+
+}
+DynamicStringArray DynamicStringArray::operator=(const DynamicStringArray& old) {
+    for (int i = 0; i <= size; i++) {
+        this->dynamicArray.push_back(old.dynamicArray.at(i));
+    }
+    this->size = old.size;
+}
+void DynamicStringArray::addEntry(string entry) {
+    vector<string> newArray;
+    newArray.push_back(entry);
+    size++;
+    dynamicArray = newArray;
+}
+bool DynamicStringArray::deleteEntry(string entry) {
+    vector<string> newArray;
+    for (int i = 0; i < size; i++) {
+        if (dynamicArray.at(i) != entry) {
+            continue;
+        } else {
+            newArray.push_back(dynamicArray.at(i));
+        }
+    }
+    
+}
+string DynamicStringArray::getEntry(int index) {
+    if (index > size) {
+        return nullptr;
+    }
+    return dynamicArray[index];
+}
 
 /*
 Computing III -- COMP.2010 Honor Statement
