@@ -59,8 +59,8 @@ DynamicStringArray DynamicStringArray::operator=(const DynamicStringArray& old) 
 }
 void DynamicStringArray::addEntry(string entry) {
     DynamicStringArray temp(this->size++);
-    temp.dynamicArray[temp.size] = entry;
-    *this = temp;
+    temp.dynamicArray[temp.size-1] = entry;
+    this = temp;
 }
 bool DynamicStringArray::deleteEntry(string entry) {
     DynamicStringArray newArray;
