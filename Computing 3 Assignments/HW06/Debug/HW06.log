@@ -1,0 +1,4 @@
+﻿  hw06.cpp
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW06\hw06.cpp(39,26): warning C4200: nonstandard extension used: zero-sized array in struct/union
+C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW06\hw06.cpp(39,26): message : This member will be ignored by a defaulted constructor or copy/move assignment operator
+  HW06.vcxproj -> C:\Users\Tony\Documents\GitHub\box\Computing 3 Assignments\HW06\Debug\HW06.exe

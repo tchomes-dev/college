@@ -7,7 +7,7 @@ Time Spent: <>
 ***********************************************/
 
 #include <string>
-#include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -15,8 +15,12 @@ class DynamicStringArray {
 public:
     //constructor
     DynamicStringArray() {
-        this->dynamicArray[nullptr];
+        this->dynamicArray[0];
         this->size = 0;
+    }
+    DynamicStringArray(int size) { 
+        this->size = size;
+        this->dynamicArray[size];
     }
     DynamicStringArray(const DynamicStringArray& old);
     ~DynamicStringArray();
@@ -24,53 +28,64 @@ public:
     DynamicStringArray operator=(const DynamicStringArray& old);
 
     //member functions
-    int getSize() { return this->size; }
+    int getSize() const { return this->size; }
     void addEntry(string entry);
     bool deleteEntry(string entry);
-    string getEntry(int index) {};
+    string getEntry(int index) const;
     
 
 private:
-    vector<string> dynamicArray;
-    int size;    
+    int size;
+    string dynamicArray[];    
 };
 DynamicStringArray::DynamicStringArray(const DynamicStringArray& old) {
     for (int i = 0; i <= size; i++) {
-        this->dynamicArray.push_back(old.dynamicArray.at(i));
+        this->addEntry(old.getEntry(i));
     }
     this->size = old.size;
 }
 DynamicStringArray::~DynamicStringArray() {
-
+    cout << "deleting" << endl;
+    this->size = 0;
+    this->dynamicArray[0] = {};
 }
 DynamicStringArray DynamicStringArray::operator=(const DynamicStringArray& old) {
-    for (int i = 0; i <= size; i++) {
-        this->dynamicArray.push_back(old.dynamicArray.at(i));
+    
+    for (int i = 0; i <= old.size; i++) {
+        this->addEntry(old.getEntry(i));
     }
     this->size = old.size;
+    return *this;
 }
 void DynamicStringArray::addEntry(string entry) {
-    vector<string> newArray;
-    newArray.push_back(entry);
-    size++;
-    dynamicArray = newArray;
+    DynamicStringArray temp(this->size++);
+    temp.dynamicArray[temp.size] = entry;
+    *this = temp;
 }
 bool DynamicStringArray::deleteEntry(string entry) {
-    vector<string> newArray;
+    DynamicStringArray newArray;
+    bool found = false;
     for (int i = 0; i < size; i++) {
-        if (dynamicArray.at(i) != entry) {
-            continue;
+        if (this->getEntry(i) == entry) {
+            found = true;
         } else {
-            newArray.push_back(dynamicArray.at(i));
+            newArray.addEntry(this->getEntry(i));
         }
     }
-    
+    *this = newArray;
+    return found;
 }
-string DynamicStringArray::getEntry(int index) {
+string DynamicStringArray::getEntry(int index) const{
     if (index > size) {
-        return nullptr;
+        return "nullptr";
     }
     return dynamicArray[index];
+}
+
+int main(int argv, char argc[]) {
+    DynamicStringArray test1(2);
+    test1.addEntry("hello");
+
 }
 
 /*
