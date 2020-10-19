@@ -15,12 +15,8 @@ class DynamicStringArray {
 public:
     //constructor
     DynamicStringArray() {
-        this->dynamicArray[0];
-        this->size = 0;
-    }
-    DynamicStringArray(int size) { 
-        this->size = size;
-        this->dynamicArray[size];
+        this->dynamicArray = new string[0];
+        this->arraySize = 0;
     }
     DynamicStringArray(const DynamicStringArray& old);
     ~DynamicStringArray();
@@ -28,64 +24,63 @@ public:
     DynamicStringArray operator=(const DynamicStringArray& old);
 
     //member functions
-    int getSize() const { return this->size; }
+    int getSize() const { return this->arraySize; }
     void addEntry(string entry);
     bool deleteEntry(string entry);
     string getEntry(int index) const;
     
 
 private:
-    int size;
-    string dynamicArray[];    
+    int arraySize;
+    string* dynamicArray;    
 };
 DynamicStringArray::DynamicStringArray(const DynamicStringArray& old) {
-    for (int i = 0; i <= size; i++) {
-        this->addEntry(old.getEntry(i));
-    }
-    this->size = old.size;
+
 }
 DynamicStringArray::~DynamicStringArray() {
-    cout << "deleting" << endl;
-    this->size = 0;
-    this->dynamicArray[0] = {};
+
 }
 DynamicStringArray DynamicStringArray::operator=(const DynamicStringArray& old) {
-    
-    for (int i = 0; i <= old.size; i++) {
-        this->addEntry(old.getEntry(i));
-    }
-    this->size = old.size;
+   
     return *this;
 }
 void DynamicStringArray::addEntry(string entry) {
-    DynamicStringArray temp(this->size++);
-    temp.dynamicArray[temp.size-1] = entry;
-    this = temp;
+    string* temp = new string[arraySize + 1];
+
+    if (arraySize == 0) {
+        temp[0] = entry;
+        arraySize++;
+    } else {
+        for (int i = 0; i <= arraySize; i++) {
+            if (i == arraySize) {
+                temp[i] = entry;
+                cout << temp[i] << endl;
+            } else {
+                temp[i] = this->dynamicArray[i];
+            }
+        }
+        arraySize++;
+    }
+    this->dynamicArray = temp;
+
 }
 bool DynamicStringArray::deleteEntry(string entry) {
-    DynamicStringArray newArray;
-    bool found = false;
-    for (int i = 0; i < size; i++) {
-        if (this->getEntry(i) == entry) {
-            found = true;
-        } else {
-            newArray.addEntry(this->getEntry(i));
-        }
-    }
-    *this = newArray;
-    return found;
+    return false;
 }
 string DynamicStringArray::getEntry(int index) const{
-    if (index > size) {
+    if (index > this->getSize()) {
         return "nullptr";
     }
-    return dynamicArray[index];
+    return this->dynamicArray[index];
 }
 
 int main(int argv, char argc[]) {
-    DynamicStringArray test1(2);
-    test1.addEntry("hello");
-
+    DynamicStringArray test1;
+    test1.addEntry("one");
+    test1.addEntry("two");
+    test1.addEntry("three");
+    cout << test1.getEntry(0) << endl;
+    cout << test1.getEntry(1) << endl;
 }
 
 /*
