@@ -15,7 +15,7 @@ class DynamicStringArray {
 public:
     //constructor
     DynamicStringArray() {
-        this->dynamicArray = new string[0];
+        this->dynamicArray = nullptr;
         this->arraySize = 0;
     }
     DynamicStringArray(const DynamicStringArray& old);
@@ -39,7 +39,7 @@ DynamicStringArray::DynamicStringArray(const DynamicStringArray& other) {
     this->arraySize = other.arraySize;
 }
 DynamicStringArray::~DynamicStringArray() {
-    this->dynamicArray = nullptr;
+    
 }
 DynamicStringArray DynamicStringArray::operator=(const DynamicStringArray& other) {
     string* temp = new string[other.arraySize];
@@ -85,7 +85,7 @@ bool DynamicStringArray::deleteEntry(string entry) {
     return found;
 }
 string DynamicStringArray::getEntry(int index) const{
-    if (index > this->getSize()) {
+    if (index > this->getSize() || index < 0) {
         return nullptr;
     }
     return this->dynamicArray[index];
@@ -106,6 +106,7 @@ int main(int argv, char argc[]) {
     for (int i = 0; i < test1.getSize(); i++) {
         cout << test1.getEntry(i) << endl;
     }
+    cout << test1.getEntry(-1) << endl;
 }
 
 /*
