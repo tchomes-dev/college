@@ -27,8 +27,8 @@ LOC:		.word	0x0400
 #  	  $a3: index to tokArray in 12 bytes per entry
 #
 ######################################################################
-
 newline:
+		
 		jal	getline			# get a new input string
 	
 		li	$t9,0			# $t5: index to inBuf
@@ -37,7 +37,8 @@ newline:
 		# State table driver
 		la	$s1, Q0			# initial state ($s1) = Q0
 		li	$s0, 1			# initial T ($s0) = 1
-driver:		lw	$s2, 0($s1)		# get the action routine
+driver:	
+		lw	$s2, 0($s1)		# get the action routine
 		jalr	$v1, $s2		# execute the action
 
 		sll	$s0, $s0, 2		# compute byte offset of T
@@ -47,67 +48,66 @@ driver:		lw	$s2, 0($s1)		# get the action routine
 		sra	$s0, $s0, 2		# reset $s0 for T
 		b	driver			# go to the next state
 
-symStart:
+symStart:					#this is where hw4 starts
 		li	$t9, 0			# index to tabToken
-nextTok:	lb	$t8, tokenTab+12
-		bne	$t8, ':', operator
+nextTok:	
+		lb	$t8, tokenTab+12	#tabToken[i+1][0]
+		bne	$t8, ':', operator	#if(tabToken[i+1][0] != ':' goto operator
 		
-		lw	$a0, tokenTab		# TOKEN
-		lw	$a1, tokenTab+4
+		lw	$a0, tokenTab		# TOKEN - $a0 has first 4 bytes of the row
+		lw	$a1, tokenTab+4		# $a1 has last 4 bytes of the row
 		li	$a2, 1			# DEFN = 1
 		jal	VAR
-		addi	$t9, $t9, 2
+		addi	$t9, $t9, 2		#i += 2
 		
 operator:		
-		addi	$t9, $t9, 1
+		addi	$t9, $t9, 1		#i++
+		li	$s7, 1			# isComma = true
 		
-		li	$s7, 1			# isComma
 chkVar:		
-		li	$t0, 12
-		mult	$t9, $t0		# x12 = x3x4
+		li	$t0, 12			
+		mul	$t9, $t9, $t0		# x12 = x3x4
 		#sll	$t8, $t9, 2		# x4
 		#add	$t8, $t9, $t9
 		#add	$t8, $t8, $t9
 		
-		lb	$t8, tokenTab($t9)
-		beq	$t8, '#', dump
-		beq	$s7, 0, nextVar
+		lb	$t8, tokenTab($t9)	#$t8 = tabToken[i+1]
+		beq	$t8, '#', dump		#if(tabToken[i][0] == '#') goto dump
+		beq	$s7, 0, nextVar		#if(!isComma) goto nextVar
 		lw	$t8, tokenTab+8($t9)
-		bne	$t8, 2, nextVar
+		bne	$t8, 2, nextVar		#if(tabToken[i][1] != 2) goto nextVar
 		
-		lw	$a0, tokenTab($t9)		# TOKEN
-		lw	$a1, tokenTab+4($t9)
-		li	$t0, 12
-		div	$t9, $t0
-		li	$a2, 0			# DEFN = 1
+		lw	$a0, tokenTab($t9)	# TOKEN - $a0 has first 4 bytes of TOKEN
+		lw	$a1, tokenTab+4($t9)	# $a1 has last 4 bytes of TOKEN
+			
+		li	$a2, 0			# DEFN = 0
 		jal	VAR
 
 nextVar: 
-		lb	$t8, tokenTab($t9)
-		li	$s7, 1
-		bne	$t8, ',', resetFlag
+		lb	$t8, tokenTab($t9)		
+		li	$s7, 1			#isComma = true
+		bne	$t8, ',', resetFlag	#if(tabToken[i][0] != ',') goto resetFlag
 		b	nextToken
 		
-resetFlag:	li	$s7, 0
+resetFlag:	
+		li	$s7, 0			#isComma = false
+		
 nextToken:
-		li	$t0, 12
-		div	$t9, $t0
-		addi	$t9, $t9, 1
+		li	$t0, 12				
+		div	$t9, $t9, $t0		#i / 12
+		addi	$t9, $t9, 1		#i++
 		b	chkVar
 		
 dump:		
 		jal	clearInBuf		# clear input buffer
 		jal	clearTokTab		# clear tokenTab
-		jal	printSymTab
+		jal	printSymTab		# print symTable
 		
 		lw	$t0, LOC
-		addi	$t0, $t0, 4
-		sw	$t0, LOC
+		addi	$t0, $t0, 4		
+		sw	$t0, LOC		#LOC += 4
 		
 		b 	newline
-
-
-
 #####################
 # VAR
 #
@@ -166,7 +166,14 @@ symACT5:
 
 
 srchSymTab:
-
+		li 	$t0, 0
+		lb	$t1, symTab($t0)		# t1 = symTab[i]
+		beq	$t1, 0x7F, symFail		# if (t1==end_of_table) goto symFail
+		beq	$t1, $a0, symFound		# if (t1==key) goto symFound
+		
+		addi	$t0, $t0, 8			# i++8 in bytes
+		b	loopSrch			# goto loopSrch
+		
 		jr	$v1
 		
 saveSymTab:
@@ -203,7 +210,7 @@ ACT1:
 ##############################################
 ACT2:
 	li	$s3, 0				# initialize index to curTok char 
-	sb	$a0, curTok($s3)			# save 1st char to curTok
+	sb	$a0, curTok($s3)		# save 1st char to curTok
 	sb	$s0, curTok+8($s3)		# save T (curTok type)
 	addi	$s3, $s3, 1
 	jr 	$v1
@@ -217,7 +224,7 @@ ACT2:
 #############################################
 ACT3:
 	bgt	$s3, 7, lenError		# curTok length error
-	sb	$a0, curTok($s3)			# save char to curTok
+	sb	$a0, curTok($s3)		# save char to curTok
 	addi	$s3, $s3, 1			# $s3: global index to curTok
 	jr	$v1	
 lenError:
@@ -253,7 +260,7 @@ ACT4Type:
 #
 ############################################
 RETURN:
-	b	symStart				# leave the state table
+	b	symStart			# leave the state table
 
 
 #############################################
@@ -370,7 +377,7 @@ getline:
 #
 #################################################################
 lin_search:
-	li	$t0,0				# i = 0
+	li	$t0, 0				# i = 0
 	li	$s0, 7				# retVal = 7 (char type)
 loopSrch:
 	lb	$t1, charTab($t0)		# t1 = charTab[i]
