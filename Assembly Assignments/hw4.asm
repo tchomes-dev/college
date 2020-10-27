@@ -1,4 +1,4 @@
-		.data
+ 		.data
 
 curTok:		.word 	0:3				# 2-word token & its TYPE
 tokenTab:	.word	0:30				# 10-entry token table
@@ -116,7 +116,7 @@ dump:
 VAR:
 		la	$v0, srchSymTab
 		jalr	$v1, $v0
-
+		
 
 
 		la	$s0, symACTS
@@ -167,15 +167,21 @@ symACT5:
 
 srchSymTab:
 		li 	$t0, 0
-		lb	$t1, symTab($t0)		# t1 = symTab[i]
+		lw  	$t1, symTab($t0)
+		lw	$t2, symTab($t0)
+		
 		beq	$t1, 0x7F, symFail		# if (t1==end_of_table) goto symFail
 		beq	$t1, $a0, symFound		# if (t1==key) goto symFound
-		
-		addi	$t0, $t0, 8			# i++8 in bytes
-		b	loopSrch			# goto loopSrch
-		
+		beq	$t2, $a1, symFound		# if (t2==key+4) got to symFound
+		addi	$t0, $t0, 16			# i+16 in bytes
+		b	srchSymTab			# goto srchSymTab		
+symFound:
+		move 	$v1, $t0
 		jr	$v1
-		
+symFail:
+		li	$t0, -1
+		move 	$v1, $t0
+		jr	$v1
 saveSymTab:
 
 		jr	$v1
