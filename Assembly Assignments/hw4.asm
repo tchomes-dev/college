@@ -168,7 +168,7 @@ symACT5:
 srchSymTab:
 		li 	$t0, 0
 		lw  	$t1, symTab($t0)
-		lw	$t2, symTab($t0)
+		lw	$t2, symTab+4($t0)
 		
 		beq	$t1, 0x7F, symFail		# if (t1==end_of_table) goto symFail
 		beq	$t1, $a0, symFound		# if (t1==key) goto symFound
@@ -182,6 +182,7 @@ symFail:
 		li	$t0, -1
 		move 	$v1, $t0
 		jr	$v1
+		
 saveSymTab:
 
 		jr	$v1
