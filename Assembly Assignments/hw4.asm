@@ -1,6 +1,7 @@
  		.data
 
 curTok:		.word 	0:3				# 2-word token & its TYPE
+newStatus:	.word 	0:2
 tokenTab:	.word	0:30				# 10-entry token table
 symTab:		.word	0:80				# 20-entry symbol table
 
@@ -116,7 +117,9 @@ dump:
 VAR:
 		la	$v0, srchSymTab
 		jalr	$v1, $v0
+		bltz	$v0, varElse
 		
+varElse:	
 
 
 		la	$s0, symACTS
