@@ -170,21 +170,27 @@ symACT5:
 
 srchSymTab:
 		li 	$t0, 0
+loopSearch:
 		lw  	$t1, symTab($t0)
 		lw	$t2, symTab+4($t0)
 		
-		beq	$t1, 0x7F, symFail		# if (t1==end_of_table) goto symFail
-		beq	$t1, $a0, symFound		# if (t1==key) goto symFound
-		beq	$t2, $a1, symFound		# if (t2==key+4) got to symFound
-		addi	$t0, $t0, 16			# i+16 in bytes
-		b	srchSymTab			# goto srchSymTab		
-symFound:
+		beq	$t0, 0x140, symFail		# if (t1==end_of_table) goto symFail
+		bne	$t1, $a0, continue	# if (t1!=key) goto continue
+		bne	$t2, $a1, continue	# if (t2!=key+4) got to continue
+		
 		move 	$v1, $t0
-		jr	$v1
+		b 	exit
+continue:
+		addi	$t0, $t0, 16			# i+16 in bytes
+		b	loopSearch			# goto srchSymTab	
+		
+exit:
+		jr	$ra
+		
 symFail:
 		li	$t0, -1
 		move 	$v1, $t0
-		jr	$v1
+		b 	exit
 		
 saveSymTab:
 		
@@ -192,8 +198,7 @@ saveSymTab:
 		
 		
 printSymTab:
-
-		jr	$ra
+	
 		
 ####################### STATE ACTION ROUTINES #####################
 ##############################################
