@@ -85,6 +85,8 @@ chkVar:
 
 nextVar: 
 		lb	$t8, tokenTab($t9)		
+		li	$t0, 12				
+		div	$t9, $t9, $t0		#i / 12
 		li	$s7, 1			#isComma = true
 		bne	$t8, ',', resetFlag	#if(tabToken[i][0] != ',') goto resetFlag
 		b	nextToken
@@ -93,8 +95,6 @@ resetFlag:
 		li	$s7, 0			#isComma = false
 		
 nextToken:
-		li	$t0, 12				
-		div	$t9, $t9, $t0		#i / 12
 		addi	$t9, $t9, 1		#i++
 		b	chkVar
 		
@@ -184,7 +184,7 @@ symFail:
 		jr	$v1
 		
 saveSymTab:
-
+		
 		jr	$v1
 		
 		
