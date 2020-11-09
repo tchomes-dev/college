@@ -13,7 +13,7 @@ public:
     bool read(const string fileName);
 
 private:
-    map<const string name, map<vector<int>, int>) > movieMap;
+    map < const string name, map<vector<int>, int>) > movieMap;
 };
 
 //constructors
