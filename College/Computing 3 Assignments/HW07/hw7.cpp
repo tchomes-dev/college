@@ -1,42 +1,44 @@
-#import <string>
-#import <map>
-#import <vector>
+#include <string>
+#include <map>
+#include <vector>
 
-#import <iostream>
-#import <fstream>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 class Movie {
 public:
-    Movie();
-    Movie(const string name);
     Movie(const string name, const int rating);
     bool read(const string fileName);
+    friend Movie operator<<(ostream& out, Movie& movie);
 
 private:
-    map<const string name, map<vector<int>, int>) > movieMap;
+    map<const string, vector<int>> movieMap;
 };
 
 //constructors
-Movie::Movie() {
-    this->movieMap.insert(make_pair(""), map<0, 0.0>));
-}
-Movie::Movie(string name) {
-    this->movieMap.insert(make_pair(name, );
-}
 Movie::Movie(const string name, const int rating) {
+    read("HW07.txt");
     vector<int> ratings;
     ratings.push_back(rating);
-    this->movieMap.insert(make_pair(name, map<vector<int>, int>));
-    this->movieMap[name].insert(make_pair(ratings, int));
+    this->movieMap.insert(make_pair(name, ratings));
 }
 
 bool Movie::read(const string fileName) {
     ofstream file(fileName);
     if (file.is_open()) {
-        while (getLine(file, ))
+        
     }
 }
 
+double averageRating(vector<int> ratings) {
+    double average = 0.0;
+    for (int rating : ratings){
+        average += (double)rating;
+    }
+    return average;
+}
 
 /*
 Computing III -- COMP.2010 Honor Statement
