@@ -26,9 +26,11 @@ Movie::Movie(const string name, const int rating) {
 }
 
 bool Movie::read(const string fileName) {
+    int rating;
+
     ofstream file(fileName);
     if (file.is_open()) {
-        
+
     }
 }
 
