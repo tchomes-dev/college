@@ -113,21 +113,24 @@ Truck::Truck(const Truck& other) : Vehicle(other.getName(), other.getCylinder(),
 //---------------------
 Person& Person::operator=(const Person& other) {
     this->name = other.name;
+    return *this;
 }
 
 Vehicle& Vehicle::operator=(const Vehicle& other) {
     this->name = other.name;
     this->cylinders = other.cylinders;
     this->owner = other.owner;
+    return *this;
 }
 
 Truck& Truck::operator=(const Truck& other) {
     this->capacityTons = other.capacityTons;
     this->capacityLbs = other.capacityLbs;
+    return *this;
 }
 
 int main(int argv, char argc[]) {
-
+ 
 }
 
 /*
