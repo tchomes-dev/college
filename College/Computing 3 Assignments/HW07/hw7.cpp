@@ -7,31 +7,52 @@
 
 using namespace std;
 
+double averageRating(vector<int> ratings);
+
 class Movie {
 public:
-    Movie(const string name, const int rating);
-    bool read(const string fileName);
-    friend Movie operator<<(ostream& out, Movie& movie);
+    Movie(const string fileName);
+    void read(const string fileName);
+    friend ostream& operator<<(ostream& out, Movie& movie);
 
 private:
     map<const string, vector<int>> movieMap;
 };
 
 //constructors
-Movie::Movie(const string name, const int rating) {
-    read("HW07.txt");
-    vector<int> ratings;
-    ratings.push_back(rating);
-    this->movieMap.insert(make_pair(name, ratings));
+Movie::Movie(const string fileName) {
+    read(fileName);
 }
 
-bool Movie::read(const string fileName) {
+void Movie::read(const string fileName) {
     int rating;
+    string name;
+    string prev;
 
-    ofstream file(fileName);
-    if (file.is_open()) {
-
+    ifstream file(fileName);
+    file >> rating;
+    while (!file.eof()) {
+        file.ignore();
+        getline(file, name);
+        file >> rating;
+        if (name == "") break;
+        if (movieMap.find(name) == movieMap.end()) {
+            vector<int> ratings;
+            ratings.push_back(rating);
+            this->movieMap.insert(pair<string, vector<int>>(name, ratings));
+        } else {
+            movieMap[name].push_back(rating);
+        }
     }
+
+    file.close();
+}
+
+ostream& operator<<(ostream& out, Movie& movieObj) {
+    for (auto movie : movieObj.movieMap) {
+        out << movie.first << ": " << movie.second.size() << " reviews, average of " << averageRating(movie.second) << " / 5" << endl;
+    }
+    return out;
 }
 
 double averageRating(vector<int> ratings) {
@@ -39,9 +60,13 @@ double averageRating(vector<int> ratings) {
     for (int rating : ratings){
         average += (double)rating;
     }
-    return average;
+    return average/ratings.size();
 }
 
+int main(int argv, char argc[]) {
+    Movie movies("HW07.txt");
+    cout << movies;
+}
 /*
 Computing III -- COMP.2010 Honor Statement
 The practice of good ethical behavior is essential for maintaining

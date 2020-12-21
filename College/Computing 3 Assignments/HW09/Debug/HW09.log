@@ -1,0 +1,4 @@
+﻿  hw9.cpp
+C:\Users\Tony\Documents\GitHub\box\College\Computing 3 Assignments\HW09\hw9.cpp(72,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\College\Computing 3 Assignments\HW09\hw9.cpp(93,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  HW09.vcxproj -> C:\Users\Tony\Documents\GitHub\box\College\Computing 3 Assignments\HW09\Debug\HW09.exe

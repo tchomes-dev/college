@@ -1,61 +1,111 @@
 #include <string>
 #include <iostream>
+#include <time.h>
 
 using namespace std;
+
+int random(int min, int max);
+
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+    return is_base_of<Base, T>::value;
+}
 
 class Player {
 public:
     virtual int getGuess() { return 0; }
+    virtual void setUpper(int upper) { return; }
+    virtual void setLower(int lower) { return; }
 };
 
-class HumanPlayer : Player {
+class HumanPlayer : public Player {
 public:
     int getGuess();
 };
 
-class ComputerPlayer : Player {
+class ComputerPlayer : public Player {
 public:
     int getGuess();
+    void setUpper(int guess) { upperBound = guess - 1 ; }
+    void setLower(int guess) { lowerBound = guess + 1; }
+private:
+    int upperBound = 100;
+    int lowerBound = 0;
 };
 
+int HumanPlayer::getGuess() {
+    int input;
+    cout << "Enter a number: \n";
+    cin >> input;
+    return input;
+}
+
+int ComputerPlayer::getGuess() {
+    int answer = random(lowerBound, upperBound);
+    cout << "The computer guesses : " << answer << endl;
+    return answer;
+}
 
 //////////////////////////////////////
 // Global functions given in project
 //////////////////////////////////////
-bool checkForWin(int guess, int answer)
+bool checkForWin(int guess, int answer, Player& player)
 {
     if (answer == guess)
     {
         cout << "You're right! You win!" << endl;
         return true;
     }
-    else if (answer < guess)
+    else if (answer < guess) {
+        player.setUpper(guess);
         cout << "Your guess is too high." << endl;
-    else
+    }
+    else {
+        player.setLower(guess);
         cout << "Your guess is too low." << endl;
+    }
     return false;
 }
 // The play function takes as input two Player objects.
 void play(Player& player1, Player& player2) {
-    int answer = 0, guess = 0;
+    int answer = 0, guess1 = 0, guess2 = 0, highLow1 = 0, highLow2 = 0;
+    srand(time(0));
     answer = rand() % 100;
     bool win = false;
-
     while (!win)
     {
         cout << "Player 1's turn to guess." << endl;
-        guess = player1.getGuess();
-        win = checkForWin(guess, answer);
+        guess1 = player1.getGuess();
+        win = checkForWin(guess1, answer, player2);
         if (win) return;
-
+  
         cout << "Player 2's turn to guess." << endl;
-        guess = player2.getGuess();
-        win = checkForWin(guess, answer);
+        guess2 = player2.getGuess();
+        win = checkForWin(guess2, answer, player2);
     }
 }
 
-int main(int argv, char argc[]) {
+int random(int min, int max) //range : [min, max]
+{
+    static bool first = true;
+    if (first)
+    {
+        srand(time(NULL)); //seeding for the first time only!
+        first = false;
+    }
+    return min + rand() % ((max + 1) - min);
+}
 
+int main(int argv, char argc[]) {
+    HumanPlayer human1;
+    HumanPlayer human2;
+    ComputerPlayer comp1;
+    ComputerPlayer comp2;
+
+    play(human1, human2);
+    play(human1, comp1);
+    play(comp1, comp2);
+    play(comp2, comp1);
 }
 
 

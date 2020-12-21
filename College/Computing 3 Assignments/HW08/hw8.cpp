@@ -31,10 +31,9 @@ public:
     Person getOwner() const { return this->owner; }
 
     Vehicle& operator=(const Vehicle& other);
-    friend istream& operator >>(istream& inStream, Vehicle& vObject);
     friend ostream& operator <<(ostream& outStream, const Vehicle& vObject);
 
-private:
+protected:
     string name;
     int cylinders;
     Person owner;
@@ -43,14 +42,13 @@ private:
 class Truck : public Vehicle {
 public:
     Truck();
-    Truck(double capacityTons, int capacityLbs);
+    Truck(string name, int cylinders, const Person& owner, double capacityTons, int capacityLbs);
     Truck(const Truck& other);
 
     double getCapacityTons() const{ return this->capacityTons; }
     int getCapacityLbs() const { return this->capacityLbs; }
 
     Truck& operator=(const Truck& other);
-    friend istream& operator >>(istream& inStream, Truck& tObject);
     friend ostream& operator <<(ostream& outStream, const Truck& tObject);
 
 private:
@@ -99,7 +97,7 @@ Truck::Truck() : Vehicle() {
     this->capacityLbs = 0;
 }
 
-Truck::Truck(double capacityTons, int capacityLbs) : Vehicle(getName(), getCylinder(), getOwner()) {
+Truck::Truck(string name, int cylinders, const Person& owner, double capacityTons, int capacityLbs) : Vehicle(name, cylinders, owner) {
     this->capacityTons = capacityTons;
     this->capacityLbs = capacityLbs;
 }
@@ -129,8 +127,73 @@ Truck& Truck::operator=(const Truck& other) {
     return *this;
 }
 
+istream& operator>>(istream& inStream, Person& pObject) {
+    cout << "Enter your name: ";
+    inStream >> pObject.name;
+    return inStream;
+}
+
+
+ostream& operator<<(ostream& outStream, const Person& pObject) {
+    outStream << pObject.getName();
+    return outStream;
+}
+
+ostream& operator<<(ostream& outStream, const Vehicle& vObject) {
+    outStream << vObject.getName() << ", " << vObject.getCylinder() << " cylinders, belongs to: " << vObject.getOwner();
+    return outStream;
+}
+
+ostream& operator<<(ostream& outStream, const Truck& tObject) {
+    outStream << tObject.getName() << ", " << tObject.getCylinder() << " cylinders, belongs to: " << tObject.getOwner() <<
+        ", load capacity: " << tObject.getCapacityTons() << ", towing capacity: " << tObject.getCapacityLbs();
+    return outStream;
+}
+
 int main(int argv, char argc[]) {
- 
+    cout << "////////////////// Testing Person Class ///////////////////" << endl;
+    Person personDefault;
+    cout << "Testing default constructor: the person is: " << personDefault << endl;
+    Person person1("Tony");
+    cout << "Testing constructor(string): I am: " << person1 << endl;
+    Person copyPerson1(person1);
+    cout << "Testing copy constructor: another me is: " << copyPerson1 << endl;
+    Person person2;
+    cin >> person2;
+    cout << "You're: " << person2 << endl;
+    Person copyPerson2 = person2;
+    cout << "Testing = overloading: Another you is: " << copyPerson2 << endl;
+
+    cout << "///////////////// Testing Vehicle Class ////////////////" << endl;
+    Vehicle vehicleDefault;
+    cout << "Testing default constructor: the Vehicle is:" << endl;
+    cout << vehicleDefault << endl;
+    Vehicle vehicle1("Ford Van", 8, person1);
+    cout << "Testing constructor(args): for my car:" << endl;
+    cout << vehicle1 << endl;
+    Vehicle copyVehicle1(vehicle1);
+    cout << "Testing copy constructor: my second same car:" << endl;
+    cout << copyVehicle1 << endl;
+    Vehicle copyVehicle2 = vehicle1;
+    cout << "Testing = overloading:" << endl;
+    cout << "Your car is: " << vehicle1;
+    cout << "Your second car is: " << copyVehicle2 << endl;
+
+    cout << "///////////////// Testing Truck Class ////////////////" << endl;
+    Truck truckDefault;
+    cout << "Testing default constructor: the Truck is:" << endl;
+    cout << truckDefault << endl;
+    Truck truck1("Toyota", 6, Person("Fred"), 250, 2000);
+    cout << "Testing constructor(args): for a truck:" << endl;
+    cout << truck1 << endl;
+    Truck truckCopy1(truck1);
+    cout << "Testing copy constructor: copied truck:" << endl;
+    cout << truckCopy1 << endl;
+    Truck truck2("Toyota", 8, Person("Fred"), 500, 5000);
+    Truck truckCopy2 = truck2;
+    cout << "Testing = overloading:" << endl;
+    cout << "Your truck is: " << truck2 << endl;
+    cout << "Your second truck is: " << truckCopy2 << endl;
 }
 
 /*
