@@ -1,0 +1,52 @@
+package search;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+/**
+ * An implementation of a Searcher that performs an iterative search, storing
+ * the list of next states in a Queue. This results in a breadth-first search.
+ * 
+ */
+public class QueueBasedBreadthFirstSearcher<T> extends Searcher<T> {
+
+  /**
+   * QueueBasedBreadthFirstSearcher.
+   * 
+   * @param searchProblem : search problem
+   */
+  public QueueBasedBreadthFirstSearcher(SearchProblem<T> searchProblem) {
+    super(searchProblem);
+  }
+
+  @Override
+  public List<T> findSolution() {
+    // TODO
+    if (solution != null) {
+      return solution;
+    }
+    final List<T> path = new ArrayList<T>();
+    T state = searchProblem.getInitialState();
+    Queue<T> queue = new LinkedList<>();
+    queue.add(state);
+    visited.add(state);
+    while (!queue.isEmpty()) {
+      T q = queue.remove();
+      path.add(q);
+      for (T successor : searchProblem.getSuccessors(q)) {
+        if (!visited.contains(successor)) {
+          queue.add(successor);
+          visited.add(successor);
+        }
+      }
+    }
+    if (path.size() > 0) {
+      if (!isValidSolution(path)) {
+        throw new RuntimeException("searcher should never find an invalid solution!");
+      }
+    }
+    return path;
+  }
+}

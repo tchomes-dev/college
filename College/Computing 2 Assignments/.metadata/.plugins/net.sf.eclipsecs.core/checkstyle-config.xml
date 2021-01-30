@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<checkstyle-configurations file-format-version="5.0.0" default-check-configuration="cs187">
+  <check-configuration name="187" location="internal_config_1569665629184.xml" type="internal" description=""/>
+  <check-configuration name="cs187" location="internal_config_1571336707881.xml" type="internal" description=""/>
+</checkstyle-configurations>

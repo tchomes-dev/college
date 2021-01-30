@@ -1,0 +1,158 @@
+package structures;
+
+import java.util.Iterator;
+
+public class RecursiveList<T> implements ListInterface<T> {
+  private Node<T> head;
+  private Node<T> tail;
+  private int numElements = 0;
+
+  @Override
+  public int size() {
+    return numElements;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ListInterface<T> insertFirst(T elem) {
+    // TODO Auto-generated method stub
+    if (head == null) {
+      head = new Node<T>(elem, null);
+      tail = head;
+      numElements++;
+    } else {
+      Node<T> newNode = new Node<T>(elem, head);
+      head = newNode;
+      numElements++;
+    }
+    return this;
+  }
+
+  @Override
+  public ListInterface<T> insertLast(T elem) {
+    // TODO Auto-generated method stub
+    if (isEmpty()) {
+      head = new Node<T>(elem, null);
+      tail = head;
+      numElements++;
+    } else {
+      tail.next = new Node<T>(elem, null);
+      tail = tail.next;
+      numElements++;
+    }
+    return this;
+  }
+
+  @Override
+  public ListInterface<T> insertAt(int index, T elem) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public T removeFirst() {
+    // TODO Auto-generated method stub
+    T temp = head.data;
+    head = head.next;
+    numElements--;
+    return temp;
+  }
+
+  @Override
+  public T removeLast() throws IllegalStateException {
+    // TODO Auto-generated method stub
+    T temp = tail.data;
+    tail
+    return temp;
+  }
+
+  @Override
+  public T removeAt(int i) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public T getFirst() {
+    // TODO Auto-generated method stub
+    return head.data;
+  }
+
+  @Override
+  public T getLast() {
+    // TODO Auto-generated method stub
+    return tail.data;
+  }
+
+  @Override
+  public T get(int i) {
+    // TODO Auto-generated method stub
+    Node<T> curr = head;
+    return get(i, head, 0);
+  }
+
+  public T get(int i, Node<T> curr, int pointer) {
+    if (pointer == i) {
+      return curr.data;
+    }
+    return get(i, curr.next, pointer++);
+  }
+
+  @Override
+  public boolean remove(T elem) {
+    // TODO Auto-generated method stub
+    Node<T> curr = head;
+    Node<T> prev = null;
+    return remove(elem, curr, prev);
+  }
+
+  public boolean remove(T elem, Node<T> curr, Node<T> prev) {
+    if (curr != null) {
+
+    }
+    return false;
+  }
+
+  @Override
+  public int indexOf(T elem) {
+    // TODO Auto-generated method stub
+    Node<T> curr = head;
+    return indexOf(elem, 0, curr);
+  }
+
+  public int indexOf(T elem, int currIndex, Node<T> curr) {
+    if (curr != null) {
+      if (curr.equals(elem)) {
+        return currIndex;
+      }
+      return indexOf(elem, currIndex++, curr.next);
+    }
+    return -1;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    // TODO Auto-generated method stub
+    return head == null;
+  }
+
+  class Node<T> {
+    public T data;
+    public Node<T> next;
+
+    public Node(T data) {
+      this.data = data;
+    }
+
+    public Node(T data, Node<T> next) {
+      this.data = data;
+      this.next = next;
+    }
+  }
+
+}

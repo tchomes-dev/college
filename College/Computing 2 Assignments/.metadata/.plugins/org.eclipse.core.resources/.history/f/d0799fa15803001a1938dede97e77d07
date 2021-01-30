@@ -1,0 +1,452 @@
+package structures;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class BinarySearchTree<T extends Comparable<T>> implements BstInterface<T> {
+  protected BstNode<T> root;
+  T[] array = (T[]) new Comparable[size()];
+
+  public boolean isEmpty() {
+    return root == null;
+  }
+
+  public int size() {
+    return subtreeSize(root);
+  }
+
+  protected int subtreeSize(BstNode<T> node) {
+    if (node == null) {
+      return 0;
+    } else {
+      return 1 + subtreeSize(node.getLeft()) + subtreeSize(node.getRight());
+    }
+  }
+
+  /**
+   * contains method.
+   * 
+   * @param t : target element
+   */
+  public boolean contains(T t) throws NullPointerException {
+    // TODO
+    if (t == null) {
+      throw new NullPointerException();
+    }
+    Queue<T> thisTree = new LinkedList<>();
+    inorderTraverse(thisTree, root);
+    for (T thing : thisTree) {
+      if (thing.equals(t)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * remove target t.
+   * 
+   * @param t : target element
+   */
+  public boolean remove(T t) {
+    if (t == null) {
+      throw new NullPointerException();
+    }
+    boolean result = contains(t);
+    if (result) {
+      root = removeFromSubtree(root, t);
+    }
+    return result;
+  }
+
+  private BstNode<T> removeFromSubtree(BstNode<T> node, T t) {
+    // node must not be null
+    int result = t.compareTo(node.getData());
+    if (result < 0) {
+      node.setLeft(removeFromSubtree(node.getLeft(), t));
+      if (node.getLeft() != null) {
+        node.getLeft().setParent(node);
+      }
+      return node;
+    } else if (result > 0) {
+      node.setRight(removeFromSubtree(node.getRight(), t));
+      if (node.getRight() != null) {
+        node.getRight().setParent(node);
+      }
+      return node;
+    } else { // result == 0
+      if (node.getLeft() == null) {
+        return node.getRight();
+      } else if (node.getRight() == null) {
+        return node.getLeft();
+      } else { // neither child is null
+        T predecessorValue = getHighestValue(node.getLeft());
+        node.setLeft(removeRightmost(node.getLeft()));
+        if (node.getLeft() != null) {
+          node.getLeft().setParent(node);
+        }
+        node.setData(predecessorValue);
+        return node;
+      }
+    }
+  }
+
+  private T getHighestValue(BstNode<T> node) {
+    // node must not be null
+    if (node.getRight() == null) {
+      return node.getData();
+    } else {
+      return getHighestValue(node.getRight());
+    }
+  }
+
+  private BstNode<T> removeRightmost(BstNode<T> node) {
+    // node must not be null
+    if (node.getRight() == null) {
+      return node.getLeft();
+    } else {
+      node.setRight(removeRightmost(node.getRight()));
+      if (node.getRight() != null) {
+        node.getRight().setParent(node);
+      }
+      return node;
+    }
+  }
+
+  /**
+   * get node contains target t.
+   * 
+   * @param t : target element
+   */
+  public T get(T t) throws NullPointerException {
+    // TODO
+    BstNode<T> node = root;
+    if (t == null) {
+      throw new NullPointerException();
+    }
+
+    while (node != null) {
+      if (!(node.getData().equals(t))) {
+        if (node.getData().compareTo(t) < 0) {
+          node = node.getLeft();
+        } else {
+          node = node.getRight();
+        }
+      } else {
+        return node.getData();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * add t into the tree.
+   * 
+   * @param t : new element
+   */
+  public void add(T t) {
+    if (t == null) {
+      throw new NullPointerException();
+    }
+    root = addToSubtree(root, new BstNode<T>(t, null, null));
+  }
+
+  protected BstNode<T> addToSubtree(BstNode<T> node, BstNode<T> toAdd) {
+    if (node == null) {
+      return toAdd;
+    }
+    int result = toAdd.getData().compareTo(node.getData());
+    if (result <= 0) {
+      node.setLeft(addToSubtree(node.getLeft(), toAdd));
+      if (node.getLeft() != null) {
+        node.getLeft().setParent(node);
+      }
+    } else {
+      node.setRight(addToSubtree(node.getRight(), toAdd));
+      if (node.getRight() != null) {
+        node.getRight().setParent(node);
+      }
+    }
+    return node;
+  }
+
+  @Override
+  public T getMinimum() {
+    // TODO
+    BstNode<T> left = root;
+    if (root == null) {
+      return null;
+    }
+    while (left.getLeft() != null) {
+      left = left.getLeft();
+    }
+    return left.getData();
+  }
+
+  @Override
+  public T getMaximum() {
+    // TODO
+    BstNode<T> right = root;
+    if (root == null) {
+      return null;
+    }
+    while (right.getRight() != null) {
+      right = right.getRight();
+    }
+    return right.getData();
+  }
+
+  @Override
+  public int height() {
+    // TODO
+    return height(root);
+  }
+
+  private int height(BstNode<T> node) {
+    if (node == null) {
+      return -1;
+    }
+
+    int lHeight = height(node.getLeft());
+    int rHeight = height(node.getRight());
+
+    if (lHeight > rHeight) {
+      return lHeight + 1;
+    } else {
+      return rHeight + 1;
+    }
+  }
+
+  /**
+   * pre-order traversal iterator.
+   * 
+   */
+  public Iterator<T> preorderIterator() {
+    // TODO
+    Queue<T> queue = new LinkedList<T>();
+    preOrder(queue, root);
+    return queue.iterator();
+  }
+
+  private void preOrder(Queue<T> queue, BstNode<T> node) {
+    if (node != null) {
+      queue.add(node.getData());
+      preOrder(queue, node.getLeft());
+      preOrder(queue, node.getRight());
+    }
+  }
+
+  /**
+   * in-order traversal iterator.
+   * 
+   */
+  public Iterator<T> inorderIterator() {
+    Queue<T> queue = new LinkedList<T>();
+    inorderTraverse(queue, root);
+    return queue.iterator();
+  }
+
+  private void inorderTraverse(Queue<T> queue, BstNode<T> node) {
+    if (node != null) {
+      inorderTraverse(queue, node.getLeft());
+      queue.add(node.getData());
+      inorderTraverse(queue, node.getRight());
+    }
+  }
+
+  /**
+   * post-order traversal iterator.
+   * 
+   */
+  public Iterator<T> postorderIterator() {
+    // TODO
+    Queue<T> queue = new LinkedList<T>();
+    postOrder(queue, root);
+    return queue.iterator();
+  }
+
+  private void postOrder(Queue<T> queue, BstNode<T> node) {
+    if (node != null) {
+      postOrder(queue, node.getLeft());
+      postOrder(queue, node.getRight());
+      queue.add(node.getData());
+    }
+  }
+
+  @Override
+  public boolean equals(BstInterface<T> other) throws NullPointerException {
+    // TODO
+    if (other == null) {
+      throw new NullPointerException();
+    }
+    return equalsHelper(root, other.getRoot());
+  }
+
+  private boolean equalsHelper(BstNode<T> thisNode, BstNode<T> otherNode) {
+    if (thisNode == null && otherNode == null) {
+      return true;
+    }
+    if ((thisNode == null && otherNode != null) || (thisNode != null && otherNode == null)) {
+      return false;
+    }
+    if (thisNode.getData().equals(otherNode.getData())) {
+      equalsHelper(thisNode.getRight(), otherNode.getRight());
+      equalsHelper(thisNode.getLeft(), otherNode.getLeft());
+    } else {
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public boolean sameValues(BstInterface<T> other) throws NullPointerException {
+    // TODO
+    if (other == null) {
+      throw new NullPointerException();
+    }
+    Queue<T> thisTree = new LinkedList<>();
+    inorderTraverse(thisTree, root);
+    Queue<T> otherTree = new LinkedList<>();
+    inorderTraverse(otherTree, other.getRoot());
+
+    return thisTree.equals(otherTree);
+  }
+
+  @Override
+  public boolean isBalanced() {
+    // TODO
+    if (size() == 0) {
+      return true;
+    }
+    System.out
+        .println(Math.pow(2, height(root.getRight()) + 1) + " " + size() + " " + Math.pow(2, (height(root.getLeft()))));
+    System.out.println(
+        (size() < Math.pow(2, (height(root.getRight()) + 1))) && (size() >= Math.pow(2, height(root.getLeft()))));
+    return ((size() < Math.pow(2, (height(root.getRight()) + 1))) && (size() >= Math.pow(2, height(root.getLeft()))));
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+
+  public void balance() {
+    // TODO
+    inorderTraverseArray(root, 0);
+    root = sortedArray2BST(0, array.length - 1);
+  }
+
+  private void inorderTraverseArray(BstNode<T> node, int index) {
+    inorderTraverseArray(node.getLeft(), index);
+    array[index++] = node.getData();
+    inorderTraverseArray(node.getRight(), index);
+
+  }
+
+  private BstNode<T> sortedArray2BST(int lower, int upper) {
+    if (lower > upper) {
+      return null;
+    }
+    int mid = (lower + upper) / 2;
+    BstNode<T> node = new BstNode<T>(array[mid], null, null);
+    System.out.println(array[mid]);
+    node.setLeft(sortedArray2BST(lower, mid - 1));
+    node.setRight(sortedArray2BST(mid + 1, upper));
+    return node;
+  }
+
+  @Override
+  public BstNode<T> getRoot() {
+    // DO NOT MODIFY
+    return root;
+  }
+
+  /**
+   * helper method for formatting.
+   * 
+   * @param root : root of tree.
+   */
+  public static <T extends Comparable<T>> String toDotFormat(BstNode<T> root) {
+    // header
+    int count = 0;
+    String dot = "digraph G { \n";
+    dot += "graph [ordering=\"out\"]; \n";
+    // iterative traversal
+    Queue<BstNode<T>> queue = new LinkedList<BstNode<T>>();
+    queue.add(root);
+    BstNode<T> cursor;
+    while (!queue.isEmpty()) {
+      cursor = queue.remove();
+      if (cursor.getLeft() != null) {
+        // add edge from cursor to left child
+        dot += cursor.getData().toString() + " -> " + cursor.getLeft().getData().toString() + ";\n";
+        queue.add(cursor.getLeft());
+      } else {
+        // add dummy node
+        dot += "node" + count + " [shape=point];\n";
+        dot += cursor.getData().toString() + " -> " + "node" + count + ";\n";
+        count++;
+      }
+      if (cursor.getRight() != null) {
+        // add edge from cursor to right child
+        dot += cursor.getData().toString() + " -> " + cursor.getRight().getData().toString() + ";\n";
+        queue.add(cursor.getRight());
+      } else {
+        // add dummy node
+        dot += "node" + count + " [shape=point];\n";
+        dot += cursor.getData().toString() + " -> " + "node" + count + ";\n";
+        count++;
+      }
+
+    }
+    dot += "};";
+    return dot;
+  }
+
+  /**
+   * supporting main function.
+   * 
+   */
+  public static void main(String[] args) {
+    for (String r : new String[] { "a", "b", "c", "d", "e", "f", "g" }) {
+      BstInterface<String> tree = new BinarySearchTree<String>();
+      for (String s : new String[] { "d", "b", "a", "c", "f", "e", "g" }) {
+        tree.add(s);
+      }
+      Iterator<String> iterator = tree.inorderIterator();
+      while (iterator.hasNext()) {
+        System.out.print(iterator.next());
+      }
+      System.out.println();
+      iterator = tree.preorderIterator();
+      while (iterator.hasNext()) {
+        System.out.print(iterator.next());
+      }
+      System.out.println();
+      iterator = tree.postorderIterator();
+      while (iterator.hasNext()) {
+        System.out.print(iterator.next());
+      }
+      System.out.println();
+
+      System.out.println(tree.remove(r));
+
+      iterator = tree.inorderIterator();
+      while (iterator.hasNext()) {
+        System.out.print(iterator.next());
+      }
+      System.out.println();
+    }
+
+    BstInterface<String> tree = new BinarySearchTree<String>();
+    for (String r : new String[] { "a", "b", "c", "d", "e", "f", "g" }) {
+      tree.add(r);
+    }
+    System.out.println(tree.size());
+    System.out.println(tree.height());
+    System.out.println(tree.isBalanced());
+    tree.balance();
+    System.out.println(tree.size());
+    System.out.println(tree.height());
+    System.out.println(tree.isBalanced());
+  }
+}

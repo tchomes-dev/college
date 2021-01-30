@@ -1,0 +1,119 @@
+package structures;
+
+import java.util.NoSuchElementException;
+
+/**************************************************************************************
+ * NOTE: before starting to code, check
+ * support/structures/UnboundedQueueInterface.java for detailed explanation of
+ * each interface method, including the parameters, return values, assumptions,
+ * and requirements
+ ***************************************************************************************/
+public class Queue<T> implements UnboundedQueueInterface<T> {
+  private int size = 0;
+  private Node<T> head;
+  private Node<T> tail;
+
+  public Queue() {
+    // TODO 1
+    head = null;
+    tail = head;
+  }
+
+  public Queue(Queue<T> other) {
+    // TODO 2
+    if (!other.isEmpty()) {
+      Node<T> tempOther = other.head;
+      while (tempOther != null) {
+        enqueue(tempOther.data);
+        tempOther = tempOther.next;
+      }
+    } else {
+      head = null;
+      tail = head;
+    }
+  }
+
+  @Override
+  public boolean isEmpty() {
+    // TODO 3
+    return head == null;
+  }
+
+  @Override
+  public int size() {
+    // TODO 4
+    return size;
+  }
+
+  @Override
+  public void enqueue(T element) {
+    // TODO 5
+    Node<T> newNode = new Node<T>(element, null);
+    if (head == null) {
+      head = newNode;
+      size++;
+    } else {
+      tail.next = newNode;
+      size++;
+    }
+    tail = newNode;
+  }
+
+  @Override
+  public T dequeue() throws NoSuchElementException {
+    // TODO 6
+    if (isEmpty()) {
+      throw new NoSuchElementException();
+    }
+    T temp = head.data;
+    head = head.next;
+    size--;
+    return temp;
+  }
+
+  @Override
+  public T peek() throws NoSuchElementException {
+    // TODO 7
+    if (isEmpty()) {
+      throw new NoSuchElementException();
+    }
+    return head.data;
+  }
+
+  @Override
+  public UnboundedQueueInterface<T> reversed() {
+    // TODO 8
+    Queue<T> reversed = new Queue<>(this);
+    // Node<T> temp = reversed.head;
+    reverse(head, reversed);
+    return reversed;
+  }
+
+  public void reverse(Node<T> curr, Queue<T> queue) {
+    if (curr == null) {
+      return;
+    }
+    if (curr.next == null) {
+      queue.head = curr;
+      return;
+    }
+    reverse(curr.next, queue);
+    curr.next.next = curr;
+    curr.next = null;
+  }
+
+}
+
+class Node<T> {
+  public T data;
+  public Node<T> next;
+
+  public Node(T data) {
+    this.data = data;
+  }
+
+  public Node(T data, Node<T> next) {
+    this.data = data;
+    this.next = next;
+  }
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects"/>
+		<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\sets-student"/>
+	</list>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="true"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="true"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value=""/>
+			<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\queues-student"/>
+			<item value="C:\Users\Tony\Downloads\DS - 2 Stack ADT + App - yourname (2019-3fa)"/>
+			<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\recursion-student"/>
+			<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\postandinfix-student"/>
+			<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\sets-student"/>
+			<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\guessme-array-student"/>
+			<item value="C:\Users\Tony\Dropbox\Projects\Computer Science 187 Projects\dog-teams"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value="C:\Users\Tony\Downloads\heapqueuesstudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\recursiveliststudent.zip"/>
+			<item value=""/>
+			<item value="C:\Users\Tony\Downloads\queuesstudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\recursionstudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\BigO.zip"/>
+			<item value="C:\Users\Tony\Downloads\postandinfixstudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\setsstudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\guessmeliststudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\guessmearraystudent (1).zip"/>
+			<item value="C:\Users\Tony\Downloads\dog-teams.zip"/>
+			<item value="C:\Users\Tony\Downloads\guessmearraystudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\fizzbuzzstudent.zip"/>
+			<item value="C:\Users\Tony\Downloads\lab01-debug.zip"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,51 @@
+package search;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+/**
+ * An implementation of a Searcher that performs an iterative search, storing
+ * the list of next states in a Stack. This results in a depth-first search.
+ * 
+ */
+public class StackBasedDepthFirstSearcher<T> extends Searcher<T> {
+  private final List<T> states;
+  private final List<T> predecessors;
+
+  /**
+   * StackBasedDepthFirstSearcher.
+   * 
+   * @param searchProblem : search problem
+   */
+  public StackBasedDepthFirstSearcher(SearchProblem<T> searchProblem) {
+    super(searchProblem);
+    states = new ArrayList<T>();
+    predecessors = new ArrayList<T>();
+  }
+
+  @Override
+  public List<T> findSolution() {
+    // TODO
+    if (solution != null) {
+      return solution;
+    }
+    final List<T> path = new ArrayList<T>();
+    Stack<T> stack = new Stack<>();
+    T state = searchProblem.getInitialState();
+
+    stack.push(state);
+    while (!stack.isEmpty()) {
+      T s = stack.pop();
+      path.add(s);
+      for (T successor : searchProblem.getSuccessors(s)){
+        if (!visited.contains(successor)) {
+          stack.push(successor);
+          visited.add(successor);
+        }
+
+    }
+
+    return path;
+  }
+}
