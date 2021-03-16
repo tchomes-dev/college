@@ -1,0 +1,15 @@
+﻿  Universe.cpp
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2b\Universe.cpp(143,80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2b\Universe.cpp(143,72): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2b\Universe.cpp(143,52): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2b\Universe.cpp(177,35): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2b\Universe.cpp(177,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PS2b.vcxproj -> C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2b\Debug\PS2b.exe

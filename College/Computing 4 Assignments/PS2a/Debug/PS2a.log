@@ -1,0 +1,12 @@
+﻿  NBody.cpp
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2a\NBody.cpp(9,74): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2a\NBody.cpp(9,54): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  PS2a.vcxproj -> C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\PS2a\Debug\PS2a.exe
