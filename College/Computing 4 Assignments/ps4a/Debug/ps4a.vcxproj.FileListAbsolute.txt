@@ -1,0 +1,4 @@
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps4a\Debug\ps4a.vcxproj.CopyComplete
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps4a\Debug\ps4a.exe
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps4a\Debug\ps4a.pdb
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps4a\Debug\boost_unit_test_framework-vc142-mt-gd-x32-1_75.dll

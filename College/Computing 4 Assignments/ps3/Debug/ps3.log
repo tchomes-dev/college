@@ -1,9 +1,6 @@
-﻿  DNASimilarityTool.cpp
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(1,30): error C2143: syntax error: missing ';' before '^'
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(1,31): error C3193: '^': requires '/clr' or '/ZW' command line option
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(1,35): error C3193: '^': requires '/clr' or '/ZW' command line option
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(1,37): error C2017: illegal escape sequence
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(1,39): error C2017: illegal escape sequence
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(1,40): error C2014: preprocessor command must start as first nonwhite space
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(2,1): error C2059: syntax error: '['
-C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\DNASimilarityTool.cpp(2,1): error C2143: syntax error: missing ')' before ';'
+﻿  main.cpp
+main.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Time::Time(void)" (__imp_??0Time@sf@@QAE@XZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ) referenced in function _main
+main.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ) referenced in function _main
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps3\Debug\ps3.exe : fatal error LNK1120: 4 unresolved externals
