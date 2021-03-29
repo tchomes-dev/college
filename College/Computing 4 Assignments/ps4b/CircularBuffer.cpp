@@ -34,6 +34,14 @@ bool CircularBuffer::isFull() {
     return getCurrSize() == capacity;
 }
 
+void CircularBuffer::empty() {
+    front.index = 0;
+    back.index = 0;
+    bufferSize = 0;
+    front.pointer = buffer[front.index];
+    back.pointer = buffer[back.index];
+}
+
 void CircularBuffer::enqueue(int16_t x) {
     if (isFull())
         throw runtime_error(e);
@@ -41,7 +49,7 @@ void CircularBuffer::enqueue(int16_t x) {
         buffer[front.index] = x;
         front.pointer = buffer[front.index];
     } else {
-        back.index += (back.index + 1) % capacity;
+        back.index = (back.index + 1) % capacity;
         buffer[back.index] = x;
     }
     bufferSize++;
@@ -53,7 +61,7 @@ int16_t CircularBuffer::dequeue() {
     int16_t old_front = buffer[front.index];
     buffer[front.index] = 0;
     bufferSize--;
-    front.index += (front.index + 1) % capacity;
+    front.index = (front.index + 1) % capacity;
     front.pointer = buffer[front.index];
     return old_front;
 }

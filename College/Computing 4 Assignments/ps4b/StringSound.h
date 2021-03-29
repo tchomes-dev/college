@@ -1,12 +1,16 @@
 #include "CircularBuffer.h"
+#include <SFML/System.hpp>
 #include <vector>
+#include <random>
 
-class StringSound{ 
+using std::vector;
+
+class StringSound {
 public:
-    explicit StringSound (double frequency);
-    explicit StringSound (vector<sf::Int16> init);
-    StringSonnd(const StringSound &obj){};
-    ~StringSonnd();
+    explicit StringSound(double frequency);
+    explicit StringSound(vector<sf::Int16> init);
+    StringSound(const StringSound& obj) {};
+    ~StringSound();
     void pluck();
     void tic();
     sf::Int16 sample();
@@ -14,4 +18,4 @@ public:
 private:
     CircularBuffer* _cb;
     int _time;
-}
+};

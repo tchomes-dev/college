@@ -22,6 +22,7 @@ class CircularBuffer {
     int getCurrSize();
     bool isEmpty();
     bool isFull();
+    void empty();
     void enqueue(int16_t x);
     int16_t dequeue();
     int16_t peek();
