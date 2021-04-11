@@ -2,6 +2,7 @@
 
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <iostream>
 #include <math.h>
 
@@ -9,10 +10,10 @@ using namespace std;
 class Triangle : public sf::Drawable
 {
 public:
-    Triangle(int N, double L, double centerX, double centerY);
-
+    Triangle(double L, sf::Vector2f center);
+    void fTree(int N, sf::Vector2f absCenter);
 private:
-    sf::CircleShape triangle;
+    sf::ConvexShape triangle;
     double length;
     double height;
 };
