@@ -1,0 +1,37 @@
+﻿  TFractal.cpp
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(19,72): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(19,48): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(31,30): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(31,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(36,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(37,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\TFractal.cpp(38,54): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  ps5.vcxproj -> C:\Users\Tony\Documents\GitHub\box\College\Computing 4 Assignments\ps5\Debug\ps5.exe
