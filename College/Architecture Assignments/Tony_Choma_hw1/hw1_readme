@@ -1,0 +1,5 @@
+Short write up for assignment 1/2:
+
+I believe my degree of success in this project is around 95% solely because a (null) is printed before each bit representation of the float values. For this assignment I closely followed the intructions from the example. I had one issue initially when testing for infinity and that was because I simply didn't have something to check for an infinity pattern. Therefore I added an if statement that checked if the exponent was greater or equal to 255 and if it was then clear the mantissa. This corrected the output for the last test.
+
+Email: tony_choma@student.uml.edu

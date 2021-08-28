@@ -1,0 +1,7 @@
+tony_choma@student.uml.edu
+
+This assignment borrows from assignment 5 where we had to split the asm file into 
+seperate functions and put the functions into new .asm files. The linker links all
+of the files together resulting in the same program in assignment 5. In terms of 
+completion, my version works 100% to specification. The only problem I had was the
+masm_mrd didn't have executable permissions on the server so I lost a few minutes there.

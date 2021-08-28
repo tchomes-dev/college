@@ -1,0 +1,21 @@
+///////////////////////////////////////
+How to run the program
+///////////////////////////////////////
+1. First download required files and copy them into the same directory the asm file is located
+Availability of prom file and assembler for RSHIFT, MUL, DIV 
+
+You can find these objects on the CS server (cs.uml.edu) at:
+
+~bill/cs305/a6_help_dir/masm_mrd       (the assembler executable)
+~bill/cs305/a6_help_dir/prom_mrd.dat   (the microcode needed for RSHIFT, MUL, DIV)
+
+2. In the folder directory run this command in terminal
+    ./masm_mrd < adder.asm >adder.obj
+    you can use a different name for the obj file 
+    but make sure the asm file is exactly the same as the one 
+    in the directory
+3. While still in the same directory run
+    ./mic1 prom_mrd.dat adder.obj 0 2048
+    and this will start the program
+4. Input a positive number, hit enter, then enter another and hit enter
+5. You now have a sum of the two numbers you inputted!

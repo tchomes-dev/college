@@ -1,0 +1,124 @@
+///////////////////////////////////////////////////
+Adding 235 with 0
+///////////////////////////////////////////////////
+tchoma@cs3:~/cs305/Tony_Choma_hw6$ ./mic1 prom_mrd.dat program.exe 0 2048
+
+Please enter a 1-5 digit number followed by enter
+235
+Please enter a 1-5 digit number followed by enter
+0
+The sum of these integers is:
+235
+ProgramCounter : 0000000010110011  base 10:     179
+Accumulator    : 0000000000000000  base 10:       0
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000011111111011  base 10:    2043
+ARegister      : 1111111111111110  base 10:   65534
+BRegister      : 1111111111110110  base 10:   65526
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000010  base 10:       2
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 1103485
+
+///////////////////////////////////////////////////
+Adding 16341 with 957
+///////////////////////////////////////////////////
+tchoma@cs3:~/cs305/Tony_Choma_hw6$ ./mic1 prom_mrd.dat program.exe 0 2048
+
+Please enter a 1-5 digit number followed by enter
+16341
+Please enter a 1-5 digit number followed by enter
+957
+The sum of these integers is:
+17298
+ProgramCounter : 0000000010110011  base 10:     179
+Accumulator    : 0000000000000000  base 10:       0
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000011111111011  base 10:    2043
+ARegister      : 1111111111111110  base 10:   65534
+BRegister      : 1111111111110110  base 10:   65526
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000001  base 10:       1
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 339724
+
+///////////////////////////////////////////////////
+Adding 23786 with 12400
+///////////////////////////////////////////////////
+tchoma@cs3:~/cs305/Tony_Choma_hw6$ ./mic1 prom_mrd.dat program.exe 0 2048
+
+Please enter a 1-5 digit number followed by enter
+23786
+Please enter a 1-5 digit number followed by enter
+12400
+The sum of these integers is:
+Overflow, no sum possible
+ProgramCounter : 0000000010110011  base 10:     179
+Accumulator    : 1111111101100110  base 10:   65382
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000011111110101  base 10:    2037
+ARegister      : 1111111100000000  base 10:   65280
+BRegister      : 1111111111110110  base 10:   65526
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000010  base 10:       2
+ERegister      : 1111111111111111  base 10:   65535
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 322787
+
+///////////////////////////////////////////////////
+Adding 12 with 23
+///////////////////////////////////////////////////
+tchoma@cs3:~/cs305/Tony_Choma_hw6$ ./mic1 prom_mrd.dat program.exe 0 2048
+
+Please enter a 1-5 digit number followed by enter
+12
+Please enter a 1-5 digit number followed by enter
+23
+The sum of these integers is:
+35
+ProgramCounter : 0000000010110011  base 10:     179
+Accumulator    : 0000000000000000  base 10:       0
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000011111111011  base 10:    2043
+ARegister      : 1111111111111110  base 10:   65534
+BRegister      : 1111111111110110  base 10:   65526
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000011  base 10:       3
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 153704
+
+///////////////////////////////////////////////////
+Adding 1 with 1343
+///////////////////////////////////////////////////
+tchoma@cs3:~/cs305/Tony_Choma_hw6$ ./mic1 prom_mrd.dat program.exe 0 2048
+
+Please enter a 1-5 digit number followed by enter
+1
+Please enter a 1-5 digit number followed by enter
+1343
+The sum of these integers is:
+1344
+ProgramCounter : 0000000010110011  base 10:     179
+Accumulator    : 0000000000000000  base 10:       0
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000011111111011  base 10:    2043
+ARegister      : 1111111111111110  base 10:   65534
+BRegister      : 1111111111110110  base 10:   65526
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000001  base 10:       1
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 166079
